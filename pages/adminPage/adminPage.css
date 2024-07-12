@@ -1,0 +1,55 @@
+.hidden {
+  display: none;
+}
+
+.Verified {
+  border: 5px solid green;
+}
+
+.notVerified {
+  border: 5px solid red;
+}
+
+.user {
+  border: 5px solid grey;
+}
+
+.org {
+  border: 5px solid orange;
+}
+
+.admin {
+  border: 5px solid cadetblue;
+}
+.adminContainer {
+  width: calc(100%-var(--medium) * 2);
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: var(--small);
+  gap: var(--medium);
+}
+
+.adminCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--small);
+  align-items: left;
+  justify-content: space-evenly;
+}
+.adminCard > h3 {
+  align-self: center;
+}
+.adminCard > p {
+  height: 80px;
+}
+.adminCard > h5 {
+  text-align: right;
+}
+.adminCard > img {
+  align-self: center;
+  width: 100px;
+}
+.adminCard > button {
+  width: 80%;
+  align-self: center;
+}

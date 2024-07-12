@@ -1,0 +1,58 @@
+#startPage {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  width: 50%;
+  margin: var(--xlarge);
+}
+.btn-grp {
+  background-color: var(--secondary);
+  width: 100%;
+  border-start-start-radius: var(--small);
+  border-start-end-radius: var(--small);
+}
+.btnStartPage {
+  width: 50%;
+  background-color: #04aa6d; /* Green background */
+  border: 1px solid green; /* Green border */
+  border-radius: var(--small);
+  color: white; /* White text */
+  padding: 10px 24px; /* Some padding */
+  cursor: pointer; /* Pointer/hand icon */
+  float: left; /* Float the buttons side by side */
+  text-align: center;
+}
+/* Add a background color on hover */
+.btnStartPage:hover {
+  background-color: #3e8e41;
+}
+.forms {
+  width: 100%;
+}
+#login {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  background-color: var(--secondary);
+  padding: 5px;
+  border-end-end-radius: var(--small);
+  border-end-start-radius: var(--small);
+}
+form > label {
+  font-weight: 800;
+}
+form > input {
+  width: 95%;
+  height: 1.5rem;
+  align-self: center;
+}
+.formSubmit {
+  align-self: flex-end;
+  text-align: center;
+}

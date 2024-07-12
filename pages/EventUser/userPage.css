@@ -1,0 +1,113 @@
+.card-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  width: calc(100%-var(--medium));
+  margin: var(--medium);
+}
+.enrolledEvents {
+  width: 90%;
+  background-color: rgba(167, 201, 105, 0.247);
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--large);
+}
+.availableEvents {
+  width: 90%;
+  background-color: rgba(105, 171, 201, 0.247);
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  border-radius: var(--large);
+}
+
+.availableEvents > h2 {
+  margin: var(--medium) 0px;
+  align-self: center;
+}
+.enrolledEvents > h2 {
+  margin: var(--medium) 0px;
+  align-self: center;
+}
+
+.card {
+  align-self: center;
+  border: 2px solid grey;
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: var(--medium);
+  border-radius: var(--medium);
+  gap: var(--small);
+}
+
+.card > span {
+  display: none;
+}
+.card > div:first-of-type {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.card > div > button {
+  justify-self: right;
+  width: 80px;
+  height: 2rem;
+  background-color: var(--terciary);
+  border: none;
+  border-radius: var(--small);
+}
+.card > div:last-of-type {
+  width: 20%;
+}
+.card > img {
+  justify-self: center;
+  width: 50%;
+}
+.card > div > h3 {
+  font-size: 1.5rem;
+}
+img {
+  object-fit: cover;
+  width: 60%;
+}
+
+.card > * {
+  margin: var(--small);
+}
+#selEventContainer {
+  height: 3rem;
+}
+#selEventContainer > h3 {
+  display: inline-block;
+  width: 10%;
+}
+#selectEvents {
+  padding: 7px 40px 7px 12px;
+  width: 40%;
+  border: 1px solid #e8eaed;
+  border-radius: 5px;
+  background: white;
+  box-shadow: 0 1px 3px -2px #9098a9;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 16px;
+  transition: all 150ms ease;
+}
+&:required:invalid {
+  color: #5a667f;
+}
+
+#selectEvents > option {
+  color: #223254;
+}
+&:focus {
+  outline: none;
+  border-color: #0077ff;
+  box-shadow: 0 0 0 2px rgba(#0077ff, 0.2);
+}
+&:hover + svg {
+  stroke: #0077ff;
+}

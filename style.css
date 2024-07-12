@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+:root {
+  /* font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif; */
+
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  --background: #fafffd;
+  --font: #342e37;
+  --font2: #97979a;
+  --primary: #3c91e6;
+  --secondary: #9fd356;
+  --terciary: #fa824c;
+
+  /* Sizes */
+
+  --small: 5px;
+  --medium: 10px;
+  --large: 15px;
+  --xlarge: 25px;
+
+  box-sizing: border-box;
+  font-family: 'Nurito', serif;
+  font-synthesis: none;
+  font-weight: 400;
+  /* line-height: 1.5; */
+  list-style: none;
+
+  text-decoration: none;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  color: var(--font);
+  margin: 0px;
+  padding: 0px;
+}
+body {
+  background-color: var(--background);
+}
+a {
+  color: inherit; /* blue colors for links too */
+  text-decoration: inherit; /* no underline */
+}
+
+#app {
+  width: 100%;
+  min-height: calc(80vh);
+  /* padding-top: 2rem; */
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  background-color: var(--primary);
+  height: 10vh;
+  width: 100%;
+}
+footer {
+  background-color: var(--primary);
+  height: 10vh;
+  position: relative;
+  bottom: 0;
+}
+#subPage {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}

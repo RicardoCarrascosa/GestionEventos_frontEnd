@@ -1,0 +1,8 @@
+// Usuarios -
+// ric@email.com -- ric123 --Admin
+// jose@email.com -- jose123 --Org --- ( Puede organizar eventos)
+// juan@email.com -- juan123 --Auth --- (Asiste Eventos)
+
+// Dudas:
+// No puedo mandar el multipartform, me da siempre error de boundary no se porque...
+// En la pagina main, tengo que en funcion del rol del usuario, me sale una pagina o otra - como se hace esto mas seguro, o asi esta bien?
