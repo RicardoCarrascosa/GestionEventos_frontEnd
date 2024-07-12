@@ -40,7 +40,7 @@ const registerDiv = `
 
 const loginSubmitFN = async () => {
   // When we click on the login
-  const email = document.querySelector('#email').value
+  const email = document.querySelector('#email').value.toLowerCase()
   const password = document.querySelector('#password').value
   // Hago la solicitud a la api para logearme
   const res = await fetch('http://localhost:3000/api/v1/users/login', {
@@ -73,7 +73,7 @@ const loginSubmitFN = async () => {
 const registerSubmitFN = async () => {
   const registerQuery = {
     name: document.querySelector('#regname').value,
-    email: document.querySelector('#regemail').value,
+    email: document.querySelector('#regemail').value.toLowerCase(),
     password: document.querySelector('#regpassword').value,
     birthday: document.querySelector('#regbirthday').value,
     profileImage: document.querySelector('#regprofileImage').value
