@@ -1,5 +1,6 @@
 // PAge for the normal user, to check the events he is asisting, and the event that are open to go to
 
+// mejorar UIUX
 import './userPage.css'
 
 const EventUserTemplate = () => {

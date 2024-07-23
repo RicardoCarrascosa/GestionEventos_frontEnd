@@ -1,0 +1,25 @@
+.registerForm {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  background-color: var(--secondary);
+  padding: 10px;
+  border-end-end-radius: var(--small);
+  border-end-start-radius: var(--small);
+}
+.registerForm > h2 {
+  padding-bottom: 20px;
+}
+
+.formSubmit {
+  align-self: flex-end;
+  text-align: center;
+}
+
+.btn-register {
+  background-color: var(--terciary);
+}
+.btn-register:hover {
+  background-color: var(--terciary);
+  box-shadow: 2px 2px grey;
+}

@@ -1,5 +1,8 @@
 // Main page for the users, it will have a nav bar, with the available options acording to the user level
-// It will have a Header, some profile Info, logOut and the subpages
+// It will have the profile Info, logOut and the subpages
+
+// Mejorar profileArea o hacer una pagina de perfil
+
 import './mainPage.css'
 import Login from '../startPages/startPage'
 import EventUser from '../EventUser/userPage.js'
@@ -10,11 +13,7 @@ import orgEventPage from '../OrgEvents/orgEvents.js'
 // Import all the other pages here
 const mainTemplate = (user) => {
   return `
-  <div class='profile'>
-  <h3>${user.name}</h3>
-
-  </div class='profile'>
-  <div class='navBtns'>
+   <div class='navBtns'>
   <button id = "eventListPage"> Event List </button>
   <button id = "eventOrganizedPage" > Events Organized </button>
   <button id = "createEventPage" > Create Event </button>
@@ -28,7 +27,7 @@ const mainTemplate = (user) => {
 const mainPage = () => {
   const user = JSON.parse(localStorage.getItem('user')).user
   const rol = JSON.parse(localStorage.getItem('user')).user.rol // Encriptar ?
-  
+
   document.querySelector('#app').innerHTML = mainTemplate(user)
 
   EventUser(user._id)

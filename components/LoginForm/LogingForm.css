@@ -1,4 +1,4 @@
-.newEventForm {
+.loginForm {
   display: flex;
   flex-direction: column;
   gap: 5px;
@@ -7,6 +7,14 @@
   border-end-end-radius: var(--small);
   border-end-start-radius: var(--small);
 }
-.newEventForm > h2 {
+.loginForm > h2 {
   padding-bottom: 20px;
+}
+
+.btn-login {
+  background-color: var(--terciary);
+}
+.btn-login:hover {
+  background-color: var(--terciary);
+  box-shadow: 2px 2px grey;
 }

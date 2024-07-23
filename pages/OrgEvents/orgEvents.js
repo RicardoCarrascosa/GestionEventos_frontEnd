@@ -1,4 +1,6 @@
 // Page for the Organizer to check the events he Organizes, the asistants etc...
+
+// mejorar  -  lista de participantes
 import './orgEvent.css'
 const eventList = []
 

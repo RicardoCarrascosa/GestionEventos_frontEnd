@@ -1,4 +1,7 @@
 //  Page for the administator, to validate the events
+
+// mejorar UIUX
+
 import './adminPage.css'
 let eventList = []
 let userList = []
