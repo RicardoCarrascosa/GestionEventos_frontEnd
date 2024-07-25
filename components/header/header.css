@@ -1,0 +1,20 @@
+#header-container {
+  background-color: var(--primary);
+  height: 10vh;
+  width: 100%;
+  padding: 0.5rem 0;
+  display: flex;
+  justify-content: space-between;
+  box-shadow: 5px 5px var(--border);
+}
+#header-container > h2 {
+  align-self: center;
+  text-align: center;
+  width: 30%;
+}
+#headerNav {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: var(--medium);
+  width: 70%;
+}

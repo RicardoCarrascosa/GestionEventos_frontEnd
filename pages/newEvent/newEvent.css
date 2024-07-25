@@ -1,11 +1,14 @@
 .newEventForm {
+  align-self: center;
+  margin-top: 30px;
+  padding: 10px;
+  border-radius: 20px;
+  width: 60%;
   display: flex;
   flex-direction: column;
   gap: 5px;
   background-color: var(--secondary);
-  padding: 10px;
-  border-end-end-radius: var(--small);
-  border-end-start-radius: var(--small);
+  box-shadow: 5px 5px grey;
 }
 .newEventForm > h2 {
   padding-bottom: 20px;

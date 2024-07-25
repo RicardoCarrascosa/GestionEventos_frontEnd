@@ -2,6 +2,7 @@
 
 // mejorar UIUX
 import './userPage.css'
+import infoModal from '../../components/infoModal/infoModal'
 
 const EventUserTemplate = () => {
   return `
@@ -24,34 +25,25 @@ const EventUserTemplate = () => {
   `
 }
 
-// const eventCards = (card, btnText = 'Attend') => {
-//   return `<div class= "card">
-//   <span>${card.id}</span>
-//   <h3>${card.name}</h4>
-//   <p>${card.date}</p>
-//   <img src='../../public/assets/programming2.png'></img>
-//   <h4>${card.type}</h4>
-//   <p>${card.description}</p>
-//   <button id =${btnText} >${btnText}</button>
-//   </div>`
-// }
-
 const eventCards = (card, btnText = 'Attend') => {
   return `<div class= "card">
   <span>${card.id}</span>
+  <div>
+  <img src="${card.image}"></img>
+  </div>
+  <div class='event-card-info'>
+    <div>
+      <h3>${card.name}</h3>
+      <div >
+        <h4>${card.type}</h4>
+        <p>${card.date}</p>
+      </div>
+    </div>
   <div >
-  <h3>${card.name}</h3>
-  <h4>${card.type}</h4>
-  <button id =${btnText} >${btnText}</button>
+    <p>${card.description}</p>
+    <button id =${btnText} >${btnText}</button>
   </div>
-
-  <div>
-  <p>${card.date}</p>
-  <p>${card.description}</p>
-  </div>
-  <div>
-  <img src='../../public/assets/programming2.png'></img>
-    </div>`
+  </div>`
 }
 
 const extractEventInfo = (data) => {
@@ -64,7 +56,10 @@ const extractEventInfo = (data) => {
           name: element.name,
           description: element.description,
           type: element.type,
-          date: element.date.split('T')[0]
+          date: element.date.split('T')[0],
+          image: element.img
+            ? element.img
+            : '/assets/icons/icons8-conferencia-100.png'
         }
         cards.push(card)
       }
@@ -154,7 +149,12 @@ const deleteAttend = async (userId, eventId) => {
     })
   // Haer para eliminar la asistencia al evento de este usuario / Incluir en el backend
 }
+
+const notEnrolled = () => {
+  return `<h3 class= 'notEnrolled'> You have not enrolled in any Event</h3>`
+}
 const renderEvents = (events, atendEvent, userID) => {
+  let nEventAvailable = 0
   events.forEach((event) => {
     if (atendEvent.some((e) => e.id === event.id)) {
       document.querySelector('.enrolledEvents').innerHTML += eventCards(
@@ -166,25 +166,36 @@ const renderEvents = (events, atendEvent, userID) => {
         event,
         'Attend'
       )
+      nEventAvailable += 1
     }
   })
+
   const userAttendAsist = document.querySelectorAll('#Attend')
   userAttendAsist.forEach((btn) =>
     btn.addEventListener('click', () => {
-      const eventID = btn.parentNode.parentNode.firstElementChild.textContent
+      const eventID =
+        btn.parentNode.parentNode.parentNode.firstElementChild.textContent
       attendEvent(userID, eventID)
     })
   )
   const userDeleteAsist = document.querySelectorAll('#Delete')
   userDeleteAsist.forEach((btn) =>
     btn.addEventListener('click', () => {
-      const eventID = btn.parentNode.parentNode.firstElementChild.textContent
+      const eventID =
+        btn.parentNode.parentNode.parentNode.firstElementChild.textContent
       deleteAttend(userID, eventID)
     })
   )
+  if (document.querySelector('.enrolledEvents').childElementCount == 1) {
+    document.querySelector('#selectEvents').value = 'available'
+    document.querySelector('#selectEvents').dispatchEvent(new Event('change'))
+    document.querySelector('.enrolledEvents').innerHTML += notEnrolled()
+  } else {
+    infoModal.nEventsModal(nEventAvailable)
+  }
 }
 const EventUser = async (userID) => {
-  document.querySelector('#subPage').innerHTML = EventUserTemplate()
+  document.querySelector('#app-container').innerHTML = EventUserTemplate()
   const events = await getEvents()
   const atendEvent = await getEventsUserAsists(userID)
 

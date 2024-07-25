@@ -4,12 +4,16 @@
 
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
-  --background: #fafffd;
-  --font: #342e37;
-  --font2: #97979a;
-  --primary: #3c91e6;
-  --secondary: #9fd356;
-  --terciary: #fa824c;
+  --background: #e6e8e6;
+  --font: #f4f2f3;
+  --font2: #2f2f2f;
+  --border: #4c4b58;
+  --highlight: #c33541;
+  --valid: #57af1d;
+
+  --primary: #2e294e;
+  --secondary: #568ea3;
+  --terciary: #ff8c42;
 
   /* Sizes */
 
@@ -17,6 +21,7 @@
   --medium: 10px;
   --large: 15px;
   --xlarge: 25px;
+  --xxlarge: 35px;
 
   box-sizing: border-box;
   font-family: 'Nurito', serif;
@@ -44,25 +49,16 @@ a {
 
 #app {
   width: 100%;
-  min-height: calc(80vh);
-  /* padding-top: 2rem; */
+}
+
+#app-container {
+  width: 100%;
+  min-height: calc(70vh - 2rem);
+  padding-top: 1rem;
   display: flex;
   flex-direction: column;
 }
 
-header {
-  background-color: var(--primary);
-  height: 10vh;
-  width: 100%;
-}
-footer {
-  background-color: var(--primary);
-  height: 10vh;
-  position: relative;
-  bottom: 0;
-}
-#subPage {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
+#app-container * {
+  color: var(--font2);
 }

@@ -1,26 +1,16 @@
 .hidden {
   display: none;
 }
-
-.Verified {
-  border: 5px solid green;
+/* Maquetar user Cards y event cards a algo mas bonito */
+.verified {
+  background-color: var(--valid);
 }
 
 .notVerified {
-  border: 5px solid red;
+  background-color: var(--highlight);
+  color: var(--font) !important;
 }
 
-.user {
-  border: 5px solid grey;
-}
-
-.org {
-  border: 5px solid orange;
-}
-
-.admin {
-  border: 5px solid cadetblue;
-}
 .adminContainer {
   width: calc(100%-var(--medium) * 2);
   display: grid;
@@ -32,10 +22,15 @@
 .adminCard {
   display: flex;
   flex-direction: column;
-  gap: var(--small);
+  gap: var(--medium);
   align-items: left;
   justify-content: space-evenly;
+  padding: var(--medium);
+  border-radius: var(--medium);
+  box-shadow: 5px 5px var(--small);
+  border: 2px solid var(--border);
 }
+
 .adminCard > h3 {
   align-self: center;
 }
@@ -43,7 +38,12 @@
   height: 80px;
 }
 .adminCard > h5 {
-  text-align: right;
+  text-align: center;
+  padding: var(--small);
+  border-radius: var(--small);
+  width: 50%;
+  align-self: center;
+  font-size: 16px;
 }
 .adminCard > img {
   align-self: center;
@@ -51,5 +51,15 @@
 }
 .adminCard > button {
   width: 80%;
+  height: 1.5rem;
   align-self: center;
+  border-radius: var(--small);
+  border: none;
+  background-color: var(--secondary);
+  color: var(--font) !important;
+}
+
+.adminCard > button:hover {
+  background-color: var(--terciary);
+  color: var(--font2) !important;
 }

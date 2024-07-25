@@ -15,13 +15,17 @@ const adminHTML = `
   </div>`
 
 const eventCard = (event, subclass) => {
-  return `<div class='adminCard ${subclass}'>
+  console.log(event)
+  return `<div class='adminCard'>
   <span class='hidden'>${event._id}</span>
   <h3>${event.name}</h3>
+  <h5 class=${event.verified ? 'verified' : 'notVerified'}>${
+    event.verified ? 'Verified' : 'Needs verification'
+  }</h5>
+  <img src =${event.eventImage}></img>
   <h4>${event.type}</h4>
   <h4>${event.date.split('T')[0]}</h4>
   <p>${event.description}</p>
-  <img src ="${event.eventImage}"></img>
   <button id='btnVerifyEvent'>Verify</button>
   <button id='btnDeleteEvent'>Delete</button>
   </div>`
@@ -125,16 +129,17 @@ const upgradeUser = async (userID) => {
 }
 
 const userCard = (user) => {
-  return `<div class='adminCard ${user.rol}'>
+  return `<div class='adminCard '>
   <span class='hidden'>${user._id}</span>
   <h3>${user.name}</h3>
+  <h5 class=${user.rol}>${user.rol}</h5>
+  <img src ="${user.profileImage}"></img>
   <h4>${user.email}</h4>
   <h4>${user.birthday.split('T')[0]}</h4>
-  <h5>${user.rol}</h5>
-  <img src ="${user.profileImage}"></img>
+  
+  
   <button id= 'btnOrgUser'>Upgrade to Organizer</button>
   <button id= 'btnDeleteUser'>Delete</button>
-
   </div>`
 }
 
@@ -176,7 +181,7 @@ const adminPage = async () => {
   await getAllEvents()
   await getAllUsers()
 
-  document.querySelector('#subPage').innerHTML = adminHTML
+  document.querySelector('#app-container').innerHTML = adminHTML
 
   document.querySelector('#adminEvents').innerHTML = ''
   document.querySelector('#adminUsers').innerHTML = ''
@@ -187,7 +192,7 @@ const adminPage = async () => {
       subclass = 'Verified'
     }
     if (event.eventImage == '' || !event.eventImage) {
-      event.eventImage = '../../public/assets/programming2.png'
+      event.eventImage = '/assets/icons/icons8-conferencia-100.png'
     }
     document.querySelector('#adminEvents').innerHTML += eventCard(
       event,
@@ -198,7 +203,7 @@ const adminPage = async () => {
   userList.forEach((user) => {
     console.log(user.profileImage)
     if (user.profileImage == '' || !user.profileImage) {
-      user.profileImage = '../../public/assets/icons8-pequeña-sonrisa-64.png'
+      user.profileImage = '/assets/icons/icons8-gestión-de-clientes-100.png'
     }
 
     document.querySelector('#adminUsers').innerHTML += userCard(user)

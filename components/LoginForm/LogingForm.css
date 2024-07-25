@@ -1,20 +1,17 @@
 .loginForm {
+  align-self: center;
+  margin-top: 30px;
+  padding: 10px;
+  border-radius: 20px;
+  width: 60%;
   display: flex;
   flex-direction: column;
   gap: 5px;
   background-color: var(--secondary);
   padding: 10px;
-  border-end-end-radius: var(--small);
-  border-end-start-radius: var(--small);
-}
-.loginForm > h2 {
-  padding-bottom: 20px;
+  box-shadow: 5px 5px grey;
 }
 
-.btn-login {
-  background-color: var(--terciary);
-}
-.btn-login:hover {
-  background-color: var(--terciary);
-  box-shadow: 2px 2px grey;
+.loginForm > h2 {
+  padding-bottom: 20px;
 }

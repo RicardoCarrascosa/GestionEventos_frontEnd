@@ -1,0 +1,47 @@
+.navBtns {
+  width: 100%;
+  gap: var(--small);
+  display: flex;
+  flex-direction: row;
+  background-color: var(--primary);
+  align-content: center;
+  justify-content: space-between;
+}
+.pageBtns {
+  align-content: end;
+}
+.userBtns {
+  align-content: end;
+}
+.btnNavMenu {
+  background-color: var(--primary);
+  border: none;
+  color: var(--font);
+  padding: 10px;
+  cursor: pointer;
+  /* float: left; */
+  border-radius: var(--medium);
+}
+.btnNavMenu:hover {
+  /* background-color: cornflowerblue; */
+  border: 1px solid var(--border);
+  box-shadow: 2px 2px var(--background);
+}
+
+.btnMainMenu {
+  background-color: var(--background);
+  border: 1px solid var(--font);
+  border-radius: var(--medium);
+
+  height: 40px;
+}
+.btnMainMenu > img {
+  padding: var(--small);
+  height: 60%;
+  aspect-ratio: 1/1;
+  object-fit: fill;
+}
+.btnMainMenu:hover {
+  background-color: var(--terciary);
+  box-shadow: 2px 2px var(--border);
+}

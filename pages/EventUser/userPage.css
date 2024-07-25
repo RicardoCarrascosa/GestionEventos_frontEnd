@@ -7,18 +7,20 @@
 }
 .enrolledEvents {
   width: 90%;
-  background-color: rgba(167, 201, 105, 0.247);
+  background-color: #9fcc82;
   display: flex;
   flex-direction: column;
   border-radius: var(--large);
+  box-shadow: 5px 5px var(--border);
 }
 .availableEvents {
   width: 90%;
-  background-color: rgba(105, 171, 201, 0.247);
+  background-color: #9ebbc5;
   display: flex;
   flex-direction: column;
   justify-items: center;
   border-radius: var(--large);
+  box-shadow: 5px 5px var(--border);
 }
 
 .availableEvents > h2 {
@@ -32,11 +34,9 @@
 
 .card {
   align-self: center;
-  border: 2px solid grey;
+  border: 2px solid var(--border);
   width: 90%;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
   margin: var(--medium);
   border-radius: var(--medium);
   gap: var(--small);
@@ -46,40 +46,57 @@
   display: none;
 }
 .card > div:first-of-type {
-  width: 30%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-}
-.card > div > button {
-  justify-self: right;
-  width: 80px;
-  height: 2rem;
-  background-color: var(--terciary);
-  border: none;
+  width: 20%;
+  align-content: center;
   border-radius: var(--small);
 }
-.card > div:last-of-type {
-  width: 20%;
+.card > div:first-of-type > img {
+  max-width: 100px;
+  width: 100%;
+  object-fit: contain;
+  border-radius: var(--small);
 }
-.card > img {
-  justify-self: center;
-  width: 50%;
+.event-card-info {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
-.card > div > h3 {
+.event-card-info > div {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.event-card-info > div:last-of-type {
+  height: 100%;
+  flex-direction: column;
+}
+
+.event-card-info > div > button {
+  float: left;
+  width: 80px;
+  height: 1.5rem;
+  background-color: var(--background);
+  border: none;
+  border-radius: var(--small);
+  align-self: flex-end;
+}
+.event-card-info > div > button:hover {
+  background-color: var(--terciary);
+}
+
+.event-card-info > div > h3 {
   font-size: 1.5rem;
-}
-img {
-  object-fit: cover;
-  width: 60%;
 }
 
 .card > * {
   margin: var(--small);
 }
 #selEventContainer {
+  margin-left: var(--medium);
   height: 3rem;
 }
+
 #selEventContainer > h3 {
   display: inline-block;
   width: 10%;
@@ -87,10 +104,10 @@ img {
 #selectEvents {
   padding: 7px 40px 7px 12px;
   width: 40%;
-  border: 1px solid #e8eaed;
+  border: 1px solid var(--border);
   border-radius: 5px;
-  background: white;
-  box-shadow: 0 1px 3px -2px #9098a9;
+  background: var(--background);
+  box-shadow: 0 1px 3px -2px var(--border);
   cursor: pointer;
   font-family: inherit;
   font-size: 16px;
@@ -110,4 +127,14 @@ img {
 }
 &:hover + svg {
   stroke: #0077ff;
+}
+.notEnrolled {
+  align-self: center;
+  border: 2px solid var(--border);
+  width: 90%;
+  margin: var(--medium);
+  padding: var(--medium);
+  text-align: center;
+  border-radius: var(--medium);
+  gap: var(--small);
 }

@@ -1,15 +1,16 @@
 import './style.css'
 
-import StartPage from './pages/startPages/startPage.js'
-import mainPage from './pages/mainPage/mainPage.js'
-import headerInfo from './components/header/header.js'
-import footerInfo from './components/footer/footer.js'
-//  Render the elements
-document.querySelector('header').innerHTML = headerInfo()
-document.querySelector('footer').innerHTML = footerInfo()
-// If user is in localStorage
-if (localStorage.getItem('user')) {
-  mainPage()
-} else {
-  StartPage()
+import createHeader from './components/header/header.js'
+import createFooter from './components/footer/footer.js'
+
+const mainLayout = () => {
+  return `
+  <div id='header-container'></div>
+  <div id='app-container'></div>
+  <div id='footer-container'></div>
+  `
 }
+
+document.querySelector('#app').innerHTML = mainLayout()
+createHeader()
+createFooter()

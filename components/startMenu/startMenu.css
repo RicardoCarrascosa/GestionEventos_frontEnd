@@ -1,0 +1,24 @@
+.btnStartMenu {
+  background-color: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--large);
+  color: var(--font2);
+  padding: 5px 10px;
+  cursor: pointer;
+  float: left;
+  text-align: center;
+  height: 1.5rem;
+}
+/* Add a background color on hover */
+.btnStartMenu:hover {
+  background-color: var(--secondary);
+}
+.btnMenuSelected {
+  background-color: var(--terciary);
+}
+.startMenuHeader {
+  display: flex;
+  gap: 10px;
+  height: 100%;
+  align-items: flex-end;
+}

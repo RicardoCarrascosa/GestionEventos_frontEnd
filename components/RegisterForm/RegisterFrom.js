@@ -10,7 +10,7 @@ const registerLayOut = () => {
   ${formInput.formInputText('regname', 'Name', true)}
   ${formInput.formInputDate('regbirthday', 'Birthday')}
   ${formInput.formInputFile('regprofileImage', 'Profile Image')}
-  <button id= registerSubmit class= 'formSubmit btnStartPage btn-register'>Register</button>
+  ${formInput.formInputButton('registerSubmit', 'Register')}
   </form>`
 }
 

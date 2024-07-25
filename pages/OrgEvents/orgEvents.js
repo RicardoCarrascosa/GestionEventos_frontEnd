@@ -33,8 +33,8 @@ const OrgContainer = (event, usersCards) => {
     validState = { text: 'Verified', value: 'verifiedOrg' }
   }
 
-  if (!event.eventImage) {
-    event.eventImage = '"../../public/assets/programming2.png"'
+  if (event.eventImage == '' || !event.eventImage) {
+    event.eventImage = '../../public/assets/icons/icons8-conferencia-100.png'
   }
 
   return `<div class = 'eventOrg'>
@@ -42,14 +42,13 @@ const OrgContainer = (event, usersCards) => {
     <div>
       <h3>${event.name}</h3>
       <h4>${event.type}</h4>
-      <h4 class= "${validState.value}"> ${validState.text}</h4>
+      <h4 class= "verification ${validState.value}"> ${validState.text}</h4>
     </div>
     <div>
       <h4>${event.date.split('T')[0]}</h4>
       <p>${event.description}</p>
     </div>
-    
-      <img src =${event.eventImage}</img>
+      <img src =${event.eventImage}></img>
   </div>
   <h3>Users Attending:</h3>
   <div class = 'asistants'>
@@ -59,12 +58,12 @@ const OrgContainer = (event, usersCards) => {
 }
 
 const asistContainer = (userlist) => {
-  const userContainer = []
+  const userContainer = [
+    `<div class= 'contTable userContHead'><p> Name:</p> <p> Email:</p></div>`
+  ]
   userlist.forEach((user) => {
-    const text = `<div class= 'userCont'>
-    <p> Name:</p>
+    const text = `<div class= 'contTable userCont'>
     <p>${user.name}</p>
-    <p> Email:</p>
     <p>${user.email}</p>
     </div>`
     userContainer.push(text)
@@ -120,7 +119,7 @@ const getAsistants = async (eventID) => {
   }
 }
 const orgEventPage = async (userId) => {
-  document.querySelector('#subPage').innerHTML = orgContainer()
+  document.querySelector('#app-container').innerHTML = orgContainer()
   await orgEventsContainer(userId)
 }
 export default orgEventPage

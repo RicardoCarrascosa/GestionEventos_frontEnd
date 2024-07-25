@@ -1,13 +1,13 @@
 import './LogingForm.css'
 import formInput from '../formInput/formInput'
-import mainPage from '../../pages/mainPage/mainPage'
+import mainPage from '../mainMenu/mainMenu'
 const loginLayOut = () => {
   return `
 <form class="loginForm">
   <h2> Login </h2>
   ${formInput.formInputText('email', 'Email', true)}
   ${formInput.formInputPassword('password', 'Password', true)}
-  <button id= loginSubmit class= 'formSubmit btnStartPage btn-login'>Login</button>
+  ${formInput.formInputButton('loginSubmit', 'Login')}
 </form>`
 }
 

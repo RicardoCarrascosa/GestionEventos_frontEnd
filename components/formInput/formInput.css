@@ -2,12 +2,15 @@
   position: relative;
   margin-bottom: 25px;
 }
+.input-container > * {
+  color: var(--font2);
+}
 .input-container > label {
   position: absolute;
   top: 0.5rem;
   left: 0px;
   font-size: 16px;
-  padding: 0px 5px;
+  padding: 0px var(--small);
   transition: all 0.5s ease-in-out;
 }
 .input-container > input {
@@ -15,13 +18,13 @@
   border-bottom: 1px solid #555;
   background: transparent;
   width: 100%;
-  padding: 8px 0 5px 0;
+  padding: 8px 0 var(--small) 0;
   font-size: 16px;
 }
 .input-container > input:focus {
   border: none;
   outline: none;
-  border-bottom: 1px solid #e74c3c;
+  border-bottom: 1px solid var(--highlight);
 }
 
 .input-container > input:focus ~ label,
@@ -37,15 +40,16 @@
 .input-container > input:user-invalid ~ label {
   top: -16px;
   font-size: 14px;
-  color: crimson;
+  color: var(--highlight);
 }
 .input-container > input[type='email']:user-invalid ~ label::after {
   content: '    * Invalid Format';
-  color: crimson;
+  color: var(--highlight);
 }
+
 .input-container > input[type='password']:user-invalid ~ label::after {
   content: '    * Must contain at least one number, uppercase, lowercase letter, and be least 6 or more characters ';
-  color: crimson;
+  color: var(--highlight);
   font-size: 12px;
 }
 
@@ -54,37 +58,62 @@
   font-size: 14px;
 }
 ::-webkit-calendar-picker-indicator {
-  /* background-color: #ffffff; */
-  padding: 1px;
   cursor: pointer;
-  border-radius: 3px;
-  background-image: url('https://freeiconshop.com/wp-content/uploads/edd/calendar-outline-filled.png');
+  background-image: url('../../public/assets/icons/icons8-calendario-48.png');
+  filter: invert(1);
+  transform: scale(1.5);
 }
 .input-container > input[type='file'] ~ label {
   top: -16px;
   font-size: 14px;
 }
 .input-container > input[type='file'] {
-  width: calc(100% - 10px);
+  width: calc(100% - var(--medium));
   max-width: 100%;
-  color: var(--font);
-  padding: 5px;
-  border-radius: 5px;
-  border: 1px solid grey;
+  padding: var(--small);
+  border-radius: var(--small);
+  border: 1px solid var(--border);
 }
 
 .input-container > input[type='file']::file-selector-button {
-  margin-right: 5px;
+  margin-right: var(--small);
   border: none;
   background: var(--primary);
-  padding: 5px 10px;
-  border-radius: 10px;
   color: var(--font);
+  padding: var(--small) var(--medium);
+  border-radius: var(--medium);
   cursor: pointer;
   transition: background 0.2s ease-in-out;
   font-size: 0.9rem;
 }
 
 .input-container > input[type='file']::file-selector-button:hover {
-  background: #0d45a5;
+  background: #574d93;
+}
+.input-container > select ~ label {
+  top: -16px;
+  font-size: 14px;
+}
+
+.input-container > select {
+  width: 100%;
+  background-color: transparent;
+  padding: var(--small);
+  border-radius: var(--small);
+  border: 1px solid var(--border);
+}
+
+.btn-submit {
+  background-color: var(--terciary);
+  color: var(--font2);
+  align-self: flex-end;
+  text-align: center;
+  width: 100px;
+  padding: var(--small);
+  border-radius: 15px;
+  border: none;
+}
+.btn-submit:hover {
+  background-color: var(--terciary);
+  box-shadow: 2px 2px var(--border);
 }

@@ -30,27 +30,27 @@ import formInput from '../../components/formInput/formInput'
 //   <button id= registerSubmit class= 'formSubmit btnStartPage'>Register</button>
 // </form>`
 // }
+
 const newEvent = () => {
+  const Options = [
+    'Training Seminar',
+    'WorkShop',
+    'Festival',
+    'Retreats',
+    'Expos',
+    'Turnament',
+    'AfterWork',
+    'Convention',
+    'Congress'
+  ]
   return `<form class="newEventForm">
   <h2> Register </h2>
   ${formInput.formInputText('name', 'Name', true)}
-  <label for="type">Type:</label>
-  <select id="type" name="type" required>
-  <option value = "Training Seminar"> Training Seminar</option>
-  <option value = "WorkShop"> WorkShop</option>
-  <option value = "Festival"> Festival</option>
-  <option value = "Retreats"> Retreats</option>
-  <option value = "Expos"> Expos</option>
-  <option value = "Turnament"> Turnament</option>
-  <option value = "AfterWork"> AfterWork</option> 
-   <option value = "Convention"> Convention</option>
-  <option value = "Congress"> Congress</option>
-  </select>
-
+  ${formInput.formInputSelect('type', 'Type', true, Options)}
   ${formInput.formInputDate('date', 'Date')}
   ${formInput.formInputText('description', 'Description', true)}
   ${formInput.formInputFile('eventImage', 'Event Image')}
-  <button id= registerSubmit class= 'formSubmit btnStartPage'>Register</button>
+  ${formInput.formInputButton('registerSubmit', 'Register')}
 </form>`
 }
 const newEventRegistry = async (user) => {
@@ -90,7 +90,7 @@ const newEventRegistry = async (user) => {
 }
 
 const newEventPage = (user) => {
-  document.querySelector('#subPage').innerHTML = newEvent()
+  document.querySelector('#app-container').innerHTML = newEvent()
 
   document.querySelector('#registerSubmit').addEventListener('click', (ev) => {
     ev.preventDefault() // Avoit the page to reload
