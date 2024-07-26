@@ -18,3 +18,17 @@
   margin-right: var(--medium);
   width: 70%;
 }
+
+@media (max-width: 730px) {
+  #header-container {
+    flex-direction: column;
+    height: 15svh;
+    padding: 0;
+  }
+  #header-container {
+    width: 100%;
+  }
+  #headerNav {
+    width: 100%;
+  }
+}

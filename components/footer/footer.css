@@ -1,7 +1,7 @@
 #footer-container {
   padding-top: 0.5rem;
   background-color: var(--primary);
-  height: calc(20vh - 0.5rem);
+  height: calc(20vh + 1rem);
   position: relative;
   bottom: 0;
   display: grid;
@@ -24,7 +24,7 @@
   display: flex;
   gap: --var(--medium);
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 .footer-contact > div {
   display: inline-flex;
@@ -43,4 +43,14 @@
 
 .footer-extra > p {
   font-size: var(--large);
+}
+
+@media (max-width: 650px) {
+  .footer-icon {
+    height: 20px;
+  }
+  #footer-container {
+    height: 22vh;
+    grid-template-columns: 48% 48%;
+  }
 }

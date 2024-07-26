@@ -1,7 +1,7 @@
 .hidden {
   display: none;
 }
-/* Maquetar user Cards y event cards a algo mas bonito */
+
 .verified {
   background-color: var(--valid);
 }
@@ -34,9 +34,7 @@
 .adminCard > h3 {
   align-self: center;
 }
-.adminCard > p {
-  height: 80px;
-}
+
 .adminCard > h5 {
   text-align: center;
   padding: var(--small);
@@ -62,4 +60,19 @@
 .adminCard > button:hover {
   background-color: var(--terciary);
   color: var(--font2) !important;
+}
+
+@media (max-width: 600px) {
+  .adminContainer {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 400px) {
+  .adminContainer {
+    grid-template-columns: 1fr;
+  }
+  .adminCard > img {
+    height: 60px;
+  }
 }

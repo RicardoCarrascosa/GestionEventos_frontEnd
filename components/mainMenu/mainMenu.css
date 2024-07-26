@@ -12,6 +12,11 @@
 }
 .userBtns {
   align-content: end;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 2px;
+  margin-right: 5px;
 }
 .btnNavMenu {
   background-color: var(--primary);
@@ -32,7 +37,6 @@
   background-color: var(--background);
   border: 1px solid var(--font);
   border-radius: var(--medium);
-
   height: 40px;
 }
 .btnMainMenu > img {
@@ -44,4 +48,17 @@
 .btnMainMenu:hover {
   background-color: var(--terciary);
   box-shadow: 2px 2px var(--border);
+}
+
+@media (max-width: 500px) {
+  #btnMainMenu {
+    width: 40%;
+  }
+  .btnMainMenu > img {
+    padding: var(--small);
+    height: 60%;
+  }
+  .userBtns {
+    width: 20%;
+  }
 }
