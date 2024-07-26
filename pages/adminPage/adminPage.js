@@ -33,7 +33,7 @@ const eventCard = (event, subclass) => {
 
 const getAllEvents = async () => {
   const token = JSON.parse(localStorage.getItem('user')).token
-  await fetch('http://localhost:3000/api/v1/events/', {
+  await fetch('https://gestion-eventos-back-end.vercel.app/api/v1/events/', {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${token}`
@@ -50,12 +50,17 @@ const getAllEvents = async () => {
 const verifyEvent = async (eventID) => {
   const userId = JSON.parse(localStorage.getItem('user')).user._id
   const token = JSON.parse(localStorage.getItem('user')).token
-  await fetch('http://localhost:3000/api/v1/events/verify/'.concat(eventID), {
-    method: 'PUT',
-    headers: {
-      Authorization: `Bearer ${token}`
+  await fetch(
+    'https://gestion-eventos-back-end.vercel.app/api/v1/events/verify/'.concat(
+      eventID
+    ),
+    {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
     }
-  })
+  )
     .then((res) => {
       res.json()
     })
@@ -66,12 +71,17 @@ const verifyEvent = async (eventID) => {
 
 const deleteEvent = async (eventID) => {
   const token = JSON.parse(localStorage.getItem('user')).token
-  await fetch('http://localhost:3000/api/v1/events/'.concat(eventID), {
-    method: 'DELETE',
-    headers: {
-      Authorization: `Bearer ${token}`
+  await fetch(
+    'https://gestion-eventos-back-end.vercel.app/api/v1/events/'.concat(
+      eventID
+    ),
+    {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
     }
-  })
+  )
     .then((res) => {
       res.json()
     })
@@ -81,7 +91,7 @@ const deleteEvent = async (eventID) => {
 }
 const getAllUsers = async () => {
   const token = JSON.parse(localStorage.getItem('user')).token
-  await fetch('http://localhost:3000/api/v1/users/', {
+  await fetch('https://gestion-eventos-back-end.vercel.app/api/v1/users/', {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${token}`
@@ -97,12 +107,15 @@ const getAllUsers = async () => {
 
 const deleteUser = async (userID) => {
   const token = JSON.parse(localStorage.getItem('user')).token
-  await fetch('http://localhost:3000/api/v1/users/'.concat(userID), {
-    method: 'DELETE',
-    headers: {
-      Authorization: `Bearer ${token}`
+  await fetch(
+    'https://gestion-eventos-back-end.vercel.app/api/v1/users/'.concat(userID),
+    {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
     }
-  })
+  )
     .then((res) => {
       res.json()
     })
@@ -112,14 +125,17 @@ const deleteUser = async (userID) => {
 }
 const upgradeUser = async (userID) => {
   const token = JSON.parse(localStorage.getItem('user')).token
-  await fetch('http://localhost:3000/api/v1/users/'.concat(userID), {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`
-    },
-    body: JSON.stringify({ rol: 'org' })
-  })
+  await fetch(
+    'https://gestion-eventos-back-end.vercel.app/api/v1/users/'.concat(userID),
+    {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({ rol: 'org' })
+    }
+  )
     .then((res) => {
       res.json()
     })

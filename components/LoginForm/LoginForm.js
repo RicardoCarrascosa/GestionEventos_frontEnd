@@ -18,16 +18,19 @@ const loginSubmitFN = async () => {
 
   console.log(email, password)
   // Hago la solicitud a la api para logearme
-  const res = await fetch('http://localhost:3000/api/v1/users/login', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      email: email,
-      password: password
-    })
-  })
+  const res = await fetch(
+    'https://gestion-eventos-back-end.vercel.app/api/v1/users/login',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password
+      })
+    }
+  )
   if (res.status === 400) {
     // Its an error
     const msg = document.querySelector('.msg')

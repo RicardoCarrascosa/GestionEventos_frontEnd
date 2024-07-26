@@ -75,7 +75,9 @@ const getEventsOrganized = async (userId) => {
   try {
     const token = JSON.parse(localStorage.getItem('user')).token
     await fetch(
-      'http://localhost:3000/api/v1/events/organized/'.concat(userId),
+      'https://gestion-eventos-back-end.vercel.app/api/v1/events/organized/'.concat(
+        userId
+      ),
       {
         method: 'GET',
         headers: {
@@ -96,7 +98,9 @@ const getAsistants = async (eventID) => {
     let usersData = []
     const token = JSON.parse(localStorage.getItem('user')).token
     await fetch(
-      'http://localhost:3000/api/v1/attendees/event/'.concat(eventID),
+      'https://gestion-eventos-back-end.vercel.app/api/v1/attendees/event/'.concat(
+        eventID
+      ),
       {
         method: 'GET',
         headers: {

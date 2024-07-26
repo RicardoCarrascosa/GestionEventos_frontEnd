@@ -23,13 +23,16 @@ const registerSubmitFN = async () => {
     profileImage: document.querySelector('#regprofileImage').value
   }
   // console.log(registerQuery)
-  const res = await fetch('http://localhost:3000/api/v1/users/register', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(registerQuery)
-  })
+  const res = await fetch(
+    'https://gestion-eventos-back-end.vercel.app/api/v1/users/register',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(registerQuery)
+    }
+  )
 
   if (res.status == 400) {
     const msg = document.querySelector('.msg')

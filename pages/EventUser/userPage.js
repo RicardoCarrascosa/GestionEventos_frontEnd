@@ -70,13 +70,16 @@ const extractEventInfo = (data) => {
 
 const getEvents = async () => {
   const token = JSON.parse(localStorage.getItem('user')).token
-  const res = await fetch('http://localhost:3000/api/v1/events', {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`
+  const res = await fetch(
+    'https://gestion-eventos-back-end.vercel.app/api/v1/events',
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      }
     }
-  })
+  )
   if (res.status === 200) {
     const data = await res.json()
     return extractEventInfo(data)
@@ -88,7 +91,7 @@ const getEvents = async () => {
 const getEventsUserAsists = async (user) => {
   const token = JSON.parse(localStorage.getItem('user')).token
   const res = await fetch(
-    `http://localhost:3000/api/v1/attendees/user/${user}`,
+    `https://gestion-eventos-back-end.vercel.app/api/v1/attendees/user/${user}`,
     {
       method: 'GET',
       headers: {
@@ -109,17 +112,20 @@ const getEventsUserAsists = async (user) => {
 }
 const attendEvent = async (userId, eventId) => {
   const token = JSON.parse(localStorage.getItem('user')).token
-  await fetch(`http://localhost:3000/api/v1/attendees/create/`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`
-    },
-    body: JSON.stringify({
-      user: userId,
-      events: eventId
-    })
-  })
+  await fetch(
+    `https://gestion-eventos-back-end.vercel.app/api/v1/attendees/create/`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        user: userId,
+        events: eventId
+      })
+    }
+  )
     .then((res) => res.json())
     .then((response) => {
       console.log(response)
@@ -130,17 +136,20 @@ const attendEvent = async (userId, eventId) => {
 const deleteAttend = async (userId, eventId) => {
   const token = JSON.parse(localStorage.getItem('user')).token
   console.log('Delete Event')
-  await fetch(`http://localhost:3000/api/v1/attendees/delete/`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`
-    },
-    body: JSON.stringify({
-      user: userId,
-      events: eventId
-    })
-  })
+  await fetch(
+    `https://gestion-eventos-back-end.vercel.app/api/v1/attendees/delete/`,
+    {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        user: userId,
+        events: eventId
+      })
+    }
+  )
     .then((res) => res.json())
     .then((response) => {
       console.log(response)

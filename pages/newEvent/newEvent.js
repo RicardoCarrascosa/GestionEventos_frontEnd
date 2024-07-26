@@ -69,15 +69,18 @@ const newEventRegistry = async (user) => {
   }
   //ERROR -- No puedo mandar con PartForm -  da error de boundary
   const token = JSON.parse(localStorage.getItem('user')).token
-  await fetch('http://localhost:3000/api/v1/events/register', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`
-    },
+  await fetch(
+    'https://gestion-eventos-back-end.vercel.app/api/v1/events/register',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      },
 
-    body: JSON.stringify(registryJSON)
-  }).then((res) => {
+      body: JSON.stringify(registryJSON)
+    }
+  ).then((res) => {
     if (res.status == 400) {
       console.log('Error Creating an Event FR-End')
       alert(`An error Happened`)
