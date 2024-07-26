@@ -34,7 +34,7 @@ const OrgContainer = (event, usersCards) => {
   }
 
   if (event.eventImage == '' || !event.eventImage) {
-    event.eventImage = '../../public/assets/icons/icons8-conferencia-100.png'
+    event.eventImage = '/assets/icons/icons8-conferencia-100.png'
   }
 
   return `<div class = 'eventOrg'>
