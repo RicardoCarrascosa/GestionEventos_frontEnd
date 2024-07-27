@@ -1,5 +1,6 @@
 import './RegisterForm.css'
 import formInput from '../formInput/formInput'
+import LoginForm from '../LoginForm/LoginForm'
 // Hacer un check de lo que entra antes de lanzarlo a api
 const registerLayOut = () => {
   return `
@@ -35,10 +36,9 @@ const registerSubmitFN = async () => {
   )
 
   if (res.status == 400) {
-    const msg = document.querySelector('.msg')
-    msg.textContent = 'ups something happened'
+    alert('ups something happened')
   } else {
-    document.querySelector('.forms').innerHTML = loginDiv
+    document.querySelector('#app-container').innerHTML = LoginForm.loginLayOut()
   }
 }
 const RegisterForm = { registerLayOut, registerSubmitFN }

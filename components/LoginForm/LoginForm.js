@@ -16,7 +16,6 @@ const loginSubmitFN = async () => {
   const email = document.querySelector('#email').value.toLowerCase()
   const password = document.querySelector('#password').value
 
-  console.log(email, password)
   // Hago la solicitud a la api para logearme
   const res = await fetch(
     'https://gestion-eventos-back-end.vercel.app/api/v1/users/login',
