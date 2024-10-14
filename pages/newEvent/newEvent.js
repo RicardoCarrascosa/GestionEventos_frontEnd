@@ -1,7 +1,7 @@
 // New Event form page
 import './newEvent.css'
 import formInput from '../../components/formInput/formInput'
-
+import messOut from '../../components/messageOutput/messageOutput.js'
 // Hacer un check de lo que entra antes de lanzarlo a api
 
 // const newEvent = () => {
@@ -82,10 +82,12 @@ const newEventRegistry = async (user) => {
     }
   ).then((res) => {
     if (res.status == 400) {
-      console.log('Error Creating an Event FR-End')
-      alert(`An error Happened`)
+      messOut({ msg: `An error Happened` }, 'warning')
     } else if (res.status == 201) {
-      alert(`Event Created - Administrator needs to validate`)
+      messOut(
+        { msg: `Event Created - Administrator needs to validate` },
+        'success'
+      )
     } else {
       console.log(res.status)
     }

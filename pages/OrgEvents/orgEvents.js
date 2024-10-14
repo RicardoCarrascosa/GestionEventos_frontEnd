@@ -2,6 +2,8 @@
 
 // mejorar  -  lista de participantes
 import './orgEvent.css'
+import loadingSpinner from '../../components/loadingSpinner/loadingSpinner'
+
 const eventList = []
 
 const orgContainer = () => {
@@ -73,6 +75,7 @@ const asistContainer = (userlist) => {
 
 const getEventsOrganized = async (userId) => {
   try {
+    loadingSpinner.displayLoading()
     const token = JSON.parse(localStorage.getItem('user')).token
     await fetch(
       'https://gestion-eventos-back-end.vercel.app/api/v1/events/organized/'.concat(
@@ -90,11 +93,13 @@ const getEventsOrganized = async (userId) => {
         response.forEach((ele) => {
           eventList.push(ele)
         })
+        loadingSpinner.hideLoading()
       })
   } catch {}
 }
 const getAsistants = async (eventID) => {
   try {
+    loadingSpinner.displayLoading()
     let usersData = []
     const token = JSON.parse(localStorage.getItem('user')).token
     await fetch(
@@ -116,6 +121,7 @@ const getAsistants = async (eventID) => {
             email: ele.user.email
           })
         })
+        loadingSpinner.hideLoading()
       })
     return usersData
   } catch {

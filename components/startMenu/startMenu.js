@@ -2,6 +2,7 @@ import './startMenu.css'
 
 import RegisterForm from '../RegisterForm/RegisterFrom.js'
 import LoginForm from '../LoginForm/LoginForm.js'
+import messOut from '../messageOutput/messageOutput.js'
 
 const startMenuLayOut = () => {
   return `

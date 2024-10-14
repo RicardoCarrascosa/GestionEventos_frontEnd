@@ -2,7 +2,8 @@
 
 // mejorar UIUX
 import './userPage.css'
-import infoModal from '../../components/infoModal/infoModal'
+import messOut from '../../components/messageOutput/messageOutput.js'
+import loadingSpinner from '../../components/loadingSpinner/loadingSpinner'
 
 const EventUserTemplate = () => {
   return `
@@ -69,6 +70,7 @@ const extractEventInfo = (data) => {
 }
 
 const getEvents = async () => {
+  loadingSpinner.displayLoading()
   const token = JSON.parse(localStorage.getItem('user')).token
   const res = await fetch(
     'https://gestion-eventos-back-end.vercel.app/api/v1/events',
@@ -82,13 +84,16 @@ const getEvents = async () => {
   )
   if (res.status === 200) {
     const data = await res.json()
+    loadingSpinner.hideLoading()
     return extractEventInfo(data)
   } else {
+    loadingSpinner.hideLoading()
     return []
   }
 }
 
 const getEventsUserAsists = async (user) => {
+  loadingSpinner.displayLoading()
   const token = JSON.parse(localStorage.getItem('user')).token
   const res = await fetch(
     `https://gestion-eventos-back-end.vercel.app/api/v1/attendees/user/${user}`,
@@ -102,8 +107,10 @@ const getEventsUserAsists = async (user) => {
   if (res.status === 200) {
     const data = await res.json()
     if (data) {
+      loadingSpinner.hideLoading()
       return extractEventInfo(data.events)
     } else {
+      loadingSpinner.hideLoading()
       return []
     }
   } else {
@@ -111,6 +118,7 @@ const getEventsUserAsists = async (user) => {
   }
 }
 const attendEvent = async (userId, eventId) => {
+  loadingSpinner.displayLoading()
   const token = JSON.parse(localStorage.getItem('user')).token
   await fetch(
     `https://gestion-eventos-back-end.vercel.app/api/v1/attendees/create/`,
@@ -128,14 +136,15 @@ const attendEvent = async (userId, eventId) => {
   )
     .then((res) => res.json())
     .then((response) => {
-      console.log(response)
-      alert(`Event Added`)
+      loadingSpinner.hideLoading()
+      messOut({ msg: 'Event Added' }, 'success')
       EventUser(userId)
     })
 }
 const deleteAttend = async (userId, eventId) => {
+  loadingSpinner.displayLoading()
   const token = JSON.parse(localStorage.getItem('user')).token
-  console.log('Delete Event')
+
   await fetch(
     `https://gestion-eventos-back-end.vercel.app/api/v1/attendees/delete/`,
     {
@@ -153,10 +162,10 @@ const deleteAttend = async (userId, eventId) => {
     .then((res) => res.json())
     .then((response) => {
       console.log(response)
-      alert(`Event deleted`)
+      loadingSpinner.hideLoading()
+      messOut({ msg: `Event deleted` }, 'alert')
       EventUser(userId)
     })
-  // Haer para eliminar la asistencia al evento de este usuario / Incluir en el backend
 }
 
 const notEnrolled = () => {
@@ -200,7 +209,6 @@ const renderEvents = (events, atendEvent, userID) => {
     document.querySelector('#selectEvents').dispatchEvent(new Event('change'))
     document.querySelector('.enrolledEvents').innerHTML += notEnrolled()
   } else {
-    infoModal.nEventsModal(nEventAvailable)
   }
 }
 const EventUser = async (userID) => {

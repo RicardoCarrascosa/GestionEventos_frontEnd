@@ -3,7 +3,7 @@
 
 // Mejorar profileArea o hacer una pagina de perfil
 import './mainMenu.css'
-
+import messOut from '../messageOutput/messageOutput.js'
 import EventUser from '../../pages/EventUser/userPage.js'
 import newEventPage from '../../pages/newEvent/newEvent.js'
 import adminPage from '../../pages/adminPage/adminPage.js'
@@ -65,7 +65,7 @@ const mainMenu = () => {
   })
   document.querySelector('#logOut').addEventListener('click', () => {
     localStorage.removeItem('user')
-    alert('See you soon!')
+    messOut({ msg: `See you Soon!` }, 'success')
     StartMenu()
   })
 }

@@ -1,6 +1,9 @@
 import './RegisterForm.css'
 import formInput from '../formInput/formInput'
 import LoginForm from '../LoginForm/LoginForm'
+
+import messOut from '../messageOutput/messageOutput'
+import loadingSpinner from '../loadingSpinner/loadingSpinner'
 // Hacer un check de lo que entra antes de lanzarlo a api
 const registerLayOut = () => {
   return `
@@ -16,6 +19,7 @@ const registerLayOut = () => {
 }
 
 const registerSubmitFN = async () => {
+  loadingSpinner.displayLoading()
   const registerQuery = {
     name: document.querySelector('#regname').value,
     email: document.querySelector('#regemail').value.toLowerCase(),
@@ -34,9 +38,12 @@ const registerSubmitFN = async () => {
       body: JSON.stringify(registerQuery)
     }
   )
-
-  if (res.status == 400) {
-    alert('ups something happened')
+  const response = await res.json()
+  loadingSpinner.hideLoading()
+  if (res.status == 422) {
+    messOut(response, 'warning')
+  } else if (res.status == 400) {
+    messOut(response, 'warning')
   } else {
     document.querySelector('#app-container').innerHTML = LoginForm.loginLayOut()
   }

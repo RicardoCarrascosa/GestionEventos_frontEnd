@@ -8,6 +8,7 @@ const mainLayout = () => {
   <div id='header-container'></div>
   <div id='app-container'></div>
   <div id='footer-container'></div>
+  <div id='alerts-container'></div>
   `
 }
 

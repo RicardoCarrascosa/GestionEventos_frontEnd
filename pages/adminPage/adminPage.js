@@ -1,6 +1,8 @@
 //  Page for the administator, to validate the events
 
 // mejorar UIUX
+import loadingSpinner from '../../components/loadingSpinner/loadingSpinner'
+import messOut from '../../components/messageOutput/messageOutput'
 
 import './adminPage.css'
 let eventList = []
@@ -32,6 +34,7 @@ const eventCard = (event, subclass) => {
 }
 
 const getAllEvents = async () => {
+  loadingSpinner.displayLoading()
   const token = JSON.parse(localStorage.getItem('user')).token
   await fetch('https://gestion-eventos-back-end.vercel.app/api/v1/events/', {
     method: 'GET',
@@ -41,6 +44,7 @@ const getAllEvents = async () => {
   })
     .then((res) => res.json())
     .then((response) => {
+      loadingSpinner.hideLoading()
       response.forEach((ele) => {
         eventList.push(ele)
       })
@@ -66,6 +70,7 @@ const verifyEvent = async (eventID) => {
     })
     .then((response) => {
       adminPage()
+      messOut({ msg: 'Event Verified' }, 'success')
     })
 }
 
@@ -87,9 +92,12 @@ const deleteEvent = async (eventID) => {
     })
     .then((response) => {
       adminPage()
+      messOut({ msg: 'Event Deleted' }, 'success')
     })
 }
 const getAllUsers = async () => {
+  loadingSpinner.displayLoading()
+
   const token = JSON.parse(localStorage.getItem('user')).token
   await fetch('https://gestion-eventos-back-end.vercel.app/api/v1/users/', {
     method: 'GET',
@@ -99,6 +107,8 @@ const getAllUsers = async () => {
   })
     .then((res) => res.json())
     .then((response) => {
+      loadingSpinner.hideLoading()
+
       response.forEach((ele) => {
         userList.push(ele)
       })
@@ -120,6 +130,7 @@ const deleteUser = async (userID) => {
       res.json()
     })
     .then((response) => {
+      messOut({ msg: 'User deleted' }, 'success')
       adminPage()
     })
 }
@@ -140,11 +151,13 @@ const upgradeUser = async (userID) => {
       res.json()
     })
     .then((response) => {
+      messOut({ msg: 'User updated' }, 'success')
       adminPage()
     })
 }
 
 const userCard = (user) => {
+  console.log(user)
   return `<div class='adminCard '>
   <span class='hidden'>${user._id}</span>
   <h3>${user.name}</h3>

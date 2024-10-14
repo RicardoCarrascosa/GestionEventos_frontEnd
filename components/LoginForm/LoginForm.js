@@ -1,6 +1,9 @@
 import './LogingForm.css'
 import formInput from '../formInput/formInput'
 import mainPage from '../mainMenu/mainMenu'
+import messOut from '../messageOutput/messageOutput'
+import loadingSpinner from '../loadingSpinner/loadingSpinner'
+
 const loginLayOut = () => {
   return `
 <form class="loginForm">
@@ -12,6 +15,7 @@ const loginLayOut = () => {
 }
 
 const loginSubmitFN = async () => {
+  loadingSpinner.displayLoading()
   // When we click on the login
   const email = document.querySelector('#email').value.toLowerCase()
   const password = document.querySelector('#password').value
@@ -30,10 +34,10 @@ const loginSubmitFN = async () => {
       })
     }
   )
+
+  loadingSpinner.hideLoading()
   if (res.status === 400) {
-    // Its an error
-    const msg = document.querySelector('.msg')
-    msg.textContent = await res.json()
+    messOut(await res.json(), 'warning')
   } else {
     // If no error in log - continue
     // Get the response from the petition to the server - > login
@@ -41,7 +45,7 @@ const loginSubmitFN = async () => {
     // save in the localStorage
     localStorage.setItem('user', JSON.stringify(resData))
     // Show a mesage that has been logged
-    alert(`Welcome Back: ${email}`)
+    messOut({ msg: `Welcome Back: ${email}` }, 'success')
     // Call the User Page
     mainPage()
   }

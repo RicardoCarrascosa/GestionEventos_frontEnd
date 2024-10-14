@@ -1,0 +1,32 @@
+.messageOutput {
+  position: absolute;
+  top: calc(10vh + 2rem);
+  right: 10px;
+  width: 150px;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid black;
+  margin-bottom: 15px;
+  &.warning {
+    background-color: rgba(216, 56, 56, 0.685);
+  }
+  &.success {
+    background-color: rgba(5, 228, 24, 0.5);
+  }
+  &.alert {
+    background-color: rgba(223, 226, 11, 0.5);
+  }
+  & p {
+    color: white;
+  }
+  & span {
+    position: relative;
+    left: 130px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  & span:hover {
+    color: black;
+  }
+}

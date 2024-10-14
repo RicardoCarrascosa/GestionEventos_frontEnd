@@ -1,5 +1,5 @@
 #orgEvsContainer {
-  width: calc(100%- 2 * var(--large));
+  width: calc(100% - 3 * var(--large));
   padding: var(--large);
   display: flex;
   flex-direction: column;

@@ -94,7 +94,7 @@
 }
 #selEventContainer {
   margin-left: var(--medium);
-  width: 100%;
+  width: calc(100% - var(--medium));
   height: 3rem;
   gap: var(--medium);
 }
