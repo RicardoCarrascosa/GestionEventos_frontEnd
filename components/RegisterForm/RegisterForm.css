@@ -1,4 +1,4 @@
-.registerForm {
+#registerForm {
   align-self: center;
   margin-top: 30px;
   border-radius: 20px;
@@ -9,12 +9,12 @@
   background-color: var(--secondary);
   padding: var(--medium);
   box-shadow: 5px 5px var(--border);
-}
-.registerForm > h2 {
-  padding-bottom: 20px;
+  & > h2 {
+    padding-bottom: 20px;
+  }
 }
 @media (max-width: 600px) {
-  .registerForm {
+  #registerForm {
     width: 90%;
   }
 }

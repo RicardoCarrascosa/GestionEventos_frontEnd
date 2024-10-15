@@ -39,12 +39,9 @@ const StartMenu = () => {
     document.querySelector('#loginBtn').classList.remove('btnMenuSelected')
     document.querySelector('#app-container').innerHTML =
       RegisterForm.registerLayOut()
-    document
-      .querySelector('#registerSubmit')
-      .addEventListener('click', (ev) => {
-        ev.preventDefault() // Avoit the page to reload
-        RegisterForm.registerSubmitFN()
-      })
+    document.querySelector('#registerForm').addEventListener('submit', (ev) => {
+      RegisterForm.registerSubmitFN(ev)
+    })
   })
 }
 
