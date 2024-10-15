@@ -6,7 +6,7 @@ import loadingSpinner from '../loadingSpinner/loadingSpinner'
 
 const loginLayOut = () => {
   return `
-<form class="loginForm">
+<form id="loginForm">
   <h2> Login </h2>
   ${formInput.formInputText('email', 'Email', true)}
   ${formInput.formInputPassword('password', 'Password', true)}
@@ -14,7 +14,9 @@ const loginLayOut = () => {
 </form>`
 }
 
-const loginSubmitFN = async () => {
+const loginSubmitFN = async (e) => {
+  e.preventDefault() // Avoid the page to reload
+
   loadingSpinner.displayLoading()
   // When we click on the login
   const email = document.querySelector('#email').value.toLowerCase()
@@ -34,7 +36,6 @@ const loginSubmitFN = async () => {
       })
     }
   )
-
   loadingSpinner.hideLoading()
   if (res.status === 400) {
     messOut(await res.json(), 'warning')
@@ -45,7 +46,7 @@ const loginSubmitFN = async () => {
     // save in the localStorage
     localStorage.setItem('user', JSON.stringify(resData))
     // Show a mesage that has been logged
-    messOut({ msg: `Welcome Back: ${email}` }, 'success')
+    messOut({ message: `Welcome Back: ${email}` }, 'success')
     // Call the User Page
     mainPage()
   }

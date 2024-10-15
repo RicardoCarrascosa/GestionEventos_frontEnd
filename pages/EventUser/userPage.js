@@ -85,7 +85,8 @@ const getEvents = async () => {
   if (res.status === 200) {
     const data = await res.json()
     loadingSpinner.hideLoading()
-    return extractEventInfo(data)
+
+    return extractEventInfo(data.events)
   } else {
     loadingSpinner.hideLoading()
     return []
@@ -108,7 +109,7 @@ const getEventsUserAsists = async (user) => {
     const data = await res.json()
     if (data) {
       loadingSpinner.hideLoading()
-      return extractEventInfo(data.events)
+      return extractEventInfo(data.asistats.events)
     } else {
       loadingSpinner.hideLoading()
       return []
@@ -137,7 +138,7 @@ const attendEvent = async (userId, eventId) => {
     .then((res) => res.json())
     .then((response) => {
       loadingSpinner.hideLoading()
-      messOut({ msg: 'Event Added' }, 'success')
+      messOut(response, 'success')
       EventUser(userId)
     })
 }
@@ -161,9 +162,8 @@ const deleteAttend = async (userId, eventId) => {
   )
     .then((res) => res.json())
     .then((response) => {
-      console.log(response)
       loadingSpinner.hideLoading()
-      messOut({ msg: `Event deleted` }, 'alert')
+      messOut(response, 'alert')
       EventUser(userId)
     })
 }
@@ -173,6 +173,7 @@ const notEnrolled = () => {
 }
 const renderEvents = (events, atendEvent, userID) => {
   let nEventAvailable = 0
+
   events.forEach((event) => {
     if (atendEvent.some((e) => e.id === event.id)) {
       document.querySelector('.enrolledEvents').innerHTML += eventCards(

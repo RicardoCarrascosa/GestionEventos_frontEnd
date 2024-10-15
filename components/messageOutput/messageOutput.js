@@ -1,21 +1,22 @@
 import './messageOutput.css'
 
 const messOut = (messageArray, type = 'warning') => {
-  let message = ''
-  if (messageArray['errors']) {
-    messageArray['errors'].forEach((element) => {
-      message = message + '\n\u2022 ' + element['msg']
+  console.log(messageArray)
+  let message = `<p>${messageArray.message}</p>`
+  if (messageArray['details']) {
+    messageArray['details'].forEach((element) => {
+      message = message + `<p>${element['path']} --> ${element['msg']}</p>`
     })
     // ! Mirar como sacar todos los errores que puedan salir del array
-  } else {
-    message = messageArray['msg']
   }
 
   const msgBox = `
     <div class='messageOutput ${type}'>
       <span class= "closeBtn"> &times </span>
-      <p>${message}<p>
-    <div>
+      <div>
+      ${message}
+      </div>
+    </div>
     `
 
   document.querySelector('#alerts-container').innerHTML = msgBox

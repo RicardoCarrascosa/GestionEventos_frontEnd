@@ -1,5 +1,5 @@
 //  Page for the administator, to validate the events
-
+//! Add try catch en todos los fetch, con algun mensaje que ha petado el sistema
 // mejorar UIUX
 import loadingSpinner from '../../components/loadingSpinner/loadingSpinner'
 import messOut from '../../components/messageOutput/messageOutput'
@@ -17,7 +17,6 @@ const adminHTML = `
   </div>`
 
 const eventCard = (event, subclass) => {
-  console.log(event)
   return `<div class='adminCard'>
   <span class='hidden'>${event._id}</span>
   <h3>${event.name}</h3>
@@ -45,7 +44,7 @@ const getAllEvents = async () => {
     .then((res) => res.json())
     .then((response) => {
       loadingSpinner.hideLoading()
-      response.forEach((ele) => {
+      response.events.forEach((ele) => {
         eventList.push(ele)
       })
     })
@@ -65,12 +64,10 @@ const verifyEvent = async (eventID) => {
       }
     }
   )
-    .then((res) => {
-      res.json()
-    })
+    .then((res) => res.json())
     .then((response) => {
       adminPage()
-      messOut({ msg: 'Event Verified' }, 'success')
+      messOut(response, 'success')
     })
 }
 
@@ -87,12 +84,10 @@ const deleteEvent = async (eventID) => {
       }
     }
   )
-    .then((res) => {
-      res.json()
-    })
+    .then((res) => res.json())
     .then((response) => {
+      messOut(response, 'success')
       adminPage()
-      messOut({ msg: 'Event Deleted' }, 'success')
     })
 }
 const getAllUsers = async () => {
@@ -108,8 +103,7 @@ const getAllUsers = async () => {
     .then((res) => res.json())
     .then((response) => {
       loadingSpinner.hideLoading()
-
-      response.forEach((ele) => {
+      response.users.forEach((ele) => {
         userList.push(ele)
       })
     })
@@ -126,11 +120,9 @@ const deleteUser = async (userID) => {
       }
     }
   )
-    .then((res) => {
-      res.json()
-    })
+    .then((res) => res.json())
     .then((response) => {
-      messOut({ msg: 'User deleted' }, 'success')
+      messOut(response, 'success')
       adminPage()
     })
 }
@@ -147,17 +139,14 @@ const upgradeUser = async (userID) => {
       body: JSON.stringify({ rol: 'org' })
     }
   )
-    .then((res) => {
-      res.json()
-    })
+    .then((res) => res.json())
     .then((response) => {
-      messOut({ msg: 'User updated' }, 'success')
+      messOut(response, 'success')
       adminPage()
     })
 }
 
 const userCard = (user) => {
-  console.log(user)
   return `<div class='adminCard '>
   <span class='hidden'>${user._id}</span>
   <h3>${user.name}</h3>
@@ -230,7 +219,6 @@ const adminPage = async () => {
   })
 
   userList.forEach((user) => {
-    console.log(user.profileImage)
     if (user.profileImage == '' || !user.profileImage) {
       user.profileImage = '/assets/icons/icons8-gestión-de-clientes-100.png'
     }

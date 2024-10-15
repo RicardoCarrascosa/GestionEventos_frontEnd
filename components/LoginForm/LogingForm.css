@@ -1,4 +1,4 @@
-.loginForm {
+#loginForm {
   align-self: center;
   margin-top: 30px;
   padding: 10px;
@@ -10,11 +10,11 @@
   background-color: var(--secondary);
   padding: 10px;
   box-shadow: 5px 5px grey;
+  & > h2 {
+    padding-bottom: 20px;
+  }
 }
 
-.loginForm > h2 {
-  padding-bottom: 20px;
-}
 @media (max-width: 600px) {
   .loginForm {
     width: 90%;

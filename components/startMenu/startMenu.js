@@ -26,9 +26,8 @@ const StartMenu = () => {
     document.querySelector('#registerBtn').classList.remove('btnMenuSelected')
   })
   // Submit Button
-  document.querySelector('#loginSubmit').addEventListener('click', (ev) => {
-    ev.preventDefault() // Avoit the page to reload
-    LoginForm.loginSubmitFN() // Calls the function to ask the API
+  document.querySelector('#loginForm').addEventListener('submit', (ev) => {
+    LoginForm.loginSubmitFN(ev) // Calls the function to ask the API
   })
 
   // Register Button
