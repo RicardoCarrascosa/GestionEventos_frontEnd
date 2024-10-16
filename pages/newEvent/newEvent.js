@@ -2,6 +2,7 @@
 import './newEvent.css'
 import formInput from '../../components/formInput/formInput'
 import messOut from '../../components/messageOutput/messageOutput.js'
+import loadingSpinner from '../../components/loadingSpinner/loadingSpinner.js'
 // Hacer un check de lo que entra antes de lanzarlo a api
 
 // const newEvent = () => {
@@ -43,7 +44,7 @@ const newEvent = () => {
     'Convention',
     'Congress'
   ]
-  return `<form class="newEventForm">
+  return `<form id="newEventForm">
   <h2> Register </h2>
   ${formInput.formInputText('name', 'Name', true)}
   ${formInput.formInputSelect('type', 'Type', true, Options)}
@@ -53,53 +54,53 @@ const newEvent = () => {
   ${formInput.formInputButton('registerSubmit', 'Register')}
 </form>`
 }
-const newEventRegistry = async (user) => {
+const newEventRegistry = async (ev, user) => {
+  loadingSpinner.displayLoading()
+  ev.preventDefault() // Avoit the page to reloada
   console.log(user)
-  const registryJSON = {
-    name: document.querySelector('#name').value,
-    type: document.querySelector('#type').value,
-    date: document.querySelector('#date').value,
-    description: document.querySelector('#description').value,
-    eventImage: document.querySelector('#eventImage').value,
-    organizer: user._id
-  }
-  var form_data = new FormData()
-  for (var key in registryJSON) {
-    form_data.append(key, registryJSON[key])
-  }
+  const [name, type, date, description, eventImage] = ev.target
+
+  const body = new FormData()
+  body.append('name', name.value)
+  body.append('type', type.value)
+  body.append('date', date.value)
+  body.append('description', description.value)
+  body.append('eventImage', eventImage.files[0])
+  body.append('organizer', user._id)
+
+  console.log(body)
   //ERROR -- No puedo mandar con PartForm -  da error de boundary
   const token = JSON.parse(localStorage.getItem('user')).token
+
   await fetch(
     'https://gestion-eventos-back-end.vercel.app/api/v1/events/register',
     {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`
       },
+      body: body
+    }
+  )
+    .then((res) => res.json())
+    .then((response) => {
+      loadingSpinner.hideLoading()
 
-      body: JSON.stringify(registryJSON)
-    }
-  ).then((res) => {
-    if (res.status == 400) {
-      messOut({ msg: `An error Happened` }, 'warning')
-    } else if (res.status == 201) {
-      messOut(
-        { msg: `Event Created - Administrator needs to validate` },
-        'success'
-      )
-    } else {
-      console.log(res.status)
-    }
-  })
+      if (response.status == 'error') {
+        messOut(response, 'warning')
+      } else if (response.status == 'success') {
+        messOut(response, 'success')
+      } else {
+        console.log(res.status)
+      }
+    })
 }
 
 const newEventPage = (user) => {
   document.querySelector('#app-container').innerHTML = newEvent()
 
-  document.querySelector('#registerSubmit').addEventListener('click', (ev) => {
-    ev.preventDefault() // Avoit the page to reload
-    newEventRegistry(user)
+  document.querySelector('#newEventForm').addEventListener('submit', (ev) => {
+    newEventRegistry(ev, user)
   })
 }
 

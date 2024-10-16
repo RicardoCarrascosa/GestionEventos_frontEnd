@@ -65,7 +65,7 @@ const mainMenu = () => {
   })
   document.querySelector('#logOut').addEventListener('click', () => {
     localStorage.removeItem('user')
-    messOut({ msg: `See you Soon!` }, 'success')
+    messOut({ message: `See you Soon!` }, 'success')
     StartMenu()
   })
 }

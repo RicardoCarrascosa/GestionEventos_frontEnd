@@ -45,7 +45,6 @@ const registerSubmitFN = async (e) => {
   )
   const response = await res.json()
   loadingSpinner.hideLoading()
-
   if (response.status == 'error') {
     messOut(response, 'warning')
   } else {

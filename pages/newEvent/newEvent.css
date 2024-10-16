@@ -1,4 +1,4 @@
-.newEventForm {
+#newEventForm {
   align-self: center;
   margin-top: 30px;
   padding: 10px;
@@ -9,9 +9,9 @@
   gap: 5px;
   background-color: var(--secondary);
   box-shadow: 5px 5px grey;
-}
-.newEventForm > h2 {
-  padding-bottom: 20px;
+  & > h2 {
+    padding-bottom: 20px;
+  }
 }
 @media (max-width: 600px) {
   .newEventForm {
