@@ -19,15 +19,15 @@ const formInputEmail = (id, name, required = false) => {
 }
 const formInputPassword = (id, name, required = false) => {
   return `<div class= "input-container">
-    <input   type="password" id=${id} name=${name.toLowerCase()}  
-    ${required ? 'required' : ''} />
+    <input type="password" id=${id} name=${name.toLowerCase()}  pattern="[a-zA-z0-9]{8}"
+    ${required ? 'required' : ''}  />
     <label  for=${name.toLowerCase()}>${name}:</label>
     </div>`
 }
 const formInputButton = (id, name) => {
   return `<button id= ${id} class= 'btn-submit'>${name}</button>`
 }
-//pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"/>
+//
 const formInputDate = (id, name, required = false) => {
   return `<div class= "input-container">
   <input type="date" id=${id} name=${name.toLowerCase()} placeholder=${name} 

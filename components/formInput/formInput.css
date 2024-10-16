@@ -48,7 +48,7 @@
 }
 
 .input-container > input[type='password']:user-invalid ~ label::after {
-  content: '    * Must contain at least one number, uppercase, lowercase letter, and be least 6 or more characters ';
+  content: '    * Must contain at least one number, uppercase, lowercase letter, and be least 8 or more characters ';
   color: var(--highlight);
   font-size: 12px;
 }
