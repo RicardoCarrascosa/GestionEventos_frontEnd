@@ -57,7 +57,6 @@ const newEvent = () => {
 const newEventRegistry = async (ev, user) => {
   loadingSpinner.displayLoading()
   ev.preventDefault() // Avoit the page to reloada
-  console.log(user)
   const [name, type, date, description, eventImage] = ev.target
 
   const body = new FormData()
@@ -68,8 +67,6 @@ const newEventRegistry = async (ev, user) => {
   body.append('eventImage', eventImage.files[0])
   body.append('organizer', user._id)
 
-  console.log(body)
-  //ERROR -- No puedo mandar con PartForm -  da error de boundary
   const token = JSON.parse(localStorage.getItem('user')).token
 
   await fetch(
