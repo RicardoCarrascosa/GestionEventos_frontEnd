@@ -4,6 +4,7 @@
 import './userPage.css'
 import messOut from '../../components/messageOutput/messageOutput.js'
 import loadingSpinner from '../../components/loadingSpinner/loadingSpinner'
+import backURL from '../../utils/fetchURL.js'
 
 const EventUserTemplate = () => {
   return `
@@ -72,16 +73,13 @@ const extractEventInfo = (data) => {
 const getEvents = async () => {
   loadingSpinner.displayLoading()
   const token = JSON.parse(localStorage.getItem('user')).token
-  const res = await fetch(
-    'https://gestion-eventos-back-end.vercel.app/api/v1/events',
-    {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
-      }
+  const res = await fetch(backURL('events/'), {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`
     }
-  )
+  })
   if (res.status === 200) {
     const data = await res.json()
     loadingSpinner.hideLoading()
@@ -96,18 +94,15 @@ const getEvents = async () => {
 const getEventsUserAsists = async (user) => {
   loadingSpinner.displayLoading()
   const token = JSON.parse(localStorage.getItem('user')).token
-  const res = await fetch(
-    `https://gestion-eventos-back-end.vercel.app/api/v1/attendees/user/${user}`,
-    {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
+  const res = await fetch(backURL(`attendees/user/${user}`), {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`
     }
-  )
+  })
   if (res.status === 200) {
     const data = await res.json()
-    if (data) {
+    if (data.asistats) {
       loadingSpinner.hideLoading()
       return extractEventInfo(data.asistats.events)
     } else {
@@ -121,20 +116,17 @@ const getEventsUserAsists = async (user) => {
 const attendEvent = async (userId, eventId) => {
   loadingSpinner.displayLoading()
   const token = JSON.parse(localStorage.getItem('user')).token
-  await fetch(
-    `https://gestion-eventos-back-end.vercel.app/api/v1/attendees/create/`,
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
-      },
-      body: JSON.stringify({
-        user: userId,
-        events: eventId
-      })
-    }
-  )
+  await fetch(backURL('attendees/create/'), {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`
+    },
+    body: JSON.stringify({
+      user: userId,
+      events: eventId
+    })
+  })
     .then((res) => res.json())
     .then((response) => {
       loadingSpinner.hideLoading()
@@ -146,20 +138,17 @@ const deleteAttend = async (userId, eventId) => {
   loadingSpinner.displayLoading()
   const token = JSON.parse(localStorage.getItem('user')).token
 
-  await fetch(
-    `https://gestion-eventos-back-end.vercel.app/api/v1/attendees/delete/`,
-    {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
-      },
-      body: JSON.stringify({
-        user: userId,
-        events: eventId
-      })
-    }
-  )
+  await fetch(backURL('attendees/delete/'), {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`
+    },
+    body: JSON.stringify({
+      user: userId,
+      events: eventId
+    })
+  })
     .then((res) => res.json())
     .then((response) => {
       loadingSpinner.hideLoading()

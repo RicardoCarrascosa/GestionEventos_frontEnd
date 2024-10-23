@@ -3,6 +3,7 @@
 // mejorar  -  lista de participantes
 import './orgEvent.css'
 import loadingSpinner from '../../components/loadingSpinner/loadingSpinner'
+import backURL from '../../utils/fetchURL'
 
 const eventList = []
 
@@ -77,20 +78,15 @@ const getEventsOrganized = async (userId) => {
   try {
     loadingSpinner.displayLoading()
     const token = JSON.parse(localStorage.getItem('user')).token
-    await fetch(
-      'https://gestion-eventos-back-end.vercel.app/api/v1/events/organized/'.concat(
-        userId
-      ),
-      {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
+    await fetch(backURL('events/organized/'.concat(userId)), {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`
       }
-    )
+    })
       .then((res) => res.json())
       .then((response) => {
-        response.forEach((ele) => {
+        response.events.forEach((ele) => {
           eventList.push(ele)
         })
         loadingSpinner.hideLoading()
@@ -102,20 +98,16 @@ const getAsistants = async (eventID) => {
     loadingSpinner.displayLoading()
     let usersData = []
     const token = JSON.parse(localStorage.getItem('user')).token
-    await fetch(
-      'https://gestion-eventos-back-end.vercel.app/api/v1/attendees/event/'.concat(
-        eventID
-      ),
-      {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
+    await fetch(backURL('attendees/event/'.concat(eventID)), {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`
       }
-    )
+    })
       .then((res) => res.json())
       .then((response) => {
-        response.forEach((ele) => {
+        console.log(response)
+        response.asistats.forEach((ele) => {
           usersData.push({
             name: ele.user.name,
             email: ele.user.email

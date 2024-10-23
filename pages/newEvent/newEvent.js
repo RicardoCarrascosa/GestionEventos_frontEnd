@@ -3,6 +3,7 @@ import './newEvent.css'
 import formInput from '../../components/formInput/formInput'
 import messOut from '../../components/messageOutput/messageOutput.js'
 import loadingSpinner from '../../components/loadingSpinner/loadingSpinner.js'
+import backURL from '../../utils/fetchURL.js'
 // Hacer un check de lo que entra antes de lanzarlo a api
 
 // const newEvent = () => {
@@ -69,20 +70,16 @@ const newEventRegistry = async (ev, user) => {
 
   const token = JSON.parse(localStorage.getItem('user')).token
 
-  await fetch(
-    'https://gestion-eventos-back-end.vercel.app/api/v1/events/register',
-    {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${token}`
-      },
-      body: body
-    }
-  )
+  await fetch(backURL('events/register'), {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`
+    },
+    body: body
+  })
     .then((res) => res.json())
     .then((response) => {
       loadingSpinner.hideLoading()
-
       if (response.status == 'error') {
         messOut(response, 'warning')
       } else if (response.status == 'success') {

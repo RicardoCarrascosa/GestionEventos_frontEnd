@@ -13,6 +13,7 @@ const displayLoading = () => {
 
 // hiding loading
 const hideLoading = () => {
+  console.log('hidingLoading')
   const alertContainer = document.querySelector('#alerts-container')
   if (alertContainer.childElementCount > 0) {
     alertContainer.removeChild(alertContainer.firstChild)

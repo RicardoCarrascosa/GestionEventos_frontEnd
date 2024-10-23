@@ -3,6 +3,7 @@
 // mejorar UIUX
 import loadingSpinner from '../../components/loadingSpinner/loadingSpinner'
 import messOut from '../../components/messageOutput/messageOutput'
+import backURL from '../../utils/fetchURL'
 
 import './adminPage.css'
 let eventList = []
@@ -35,7 +36,7 @@ const eventCard = (event, subclass) => {
 const getAllEvents = async () => {
   loadingSpinner.displayLoading()
   const token = JSON.parse(localStorage.getItem('user')).token
-  await fetch('https://gestion-eventos-back-end.vercel.app/api/v1/events/', {
+  await fetch(backURL('events/'), {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${token}`
@@ -53,17 +54,12 @@ const getAllEvents = async () => {
 const verifyEvent = async (eventID) => {
   const userId = JSON.parse(localStorage.getItem('user')).user._id
   const token = JSON.parse(localStorage.getItem('user')).token
-  await fetch(
-    'https://gestion-eventos-back-end.vercel.app/api/v1/events/verify/'.concat(
-      eventID
-    ),
-    {
-      method: 'PUT',
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
+  await fetch(backURL('events/verify/').concat(eventID), {
+    method: 'PUT',
+    headers: {
+      Authorization: `Bearer ${token}`
     }
-  )
+  })
     .then((res) => res.json())
     .then((response) => {
       adminPage()
@@ -73,17 +69,12 @@ const verifyEvent = async (eventID) => {
 
 const deleteEvent = async (eventID) => {
   const token = JSON.parse(localStorage.getItem('user')).token
-  await fetch(
-    'https://gestion-eventos-back-end.vercel.app/api/v1/events/'.concat(
-      eventID
-    ),
-    {
-      method: 'DELETE',
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
+  await fetch(backURL('events').concat(eventID), {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${token}`
     }
-  )
+  })
     .then((res) => res.json())
     .then((response) => {
       messOut(response, 'success')
@@ -94,7 +85,7 @@ const getAllUsers = async () => {
   loadingSpinner.displayLoading()
 
   const token = JSON.parse(localStorage.getItem('user')).token
-  await fetch('https://gestion-eventos-back-end.vercel.app/api/v1/users/', {
+  await fetch(backURL('users/'), {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${token}`
@@ -111,15 +102,12 @@ const getAllUsers = async () => {
 
 const deleteUser = async (userID) => {
   const token = JSON.parse(localStorage.getItem('user')).token
-  await fetch(
-    'https://gestion-eventos-back-end.vercel.app/api/v1/users/'.concat(userID),
-    {
-      method: 'DELETE',
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
+  await fetch(backURL('users/'.concat(userID)), {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${token}`
     }
-  )
+  })
     .then((res) => res.json())
     .then((response) => {
       messOut(response, 'success')
@@ -128,17 +116,14 @@ const deleteUser = async (userID) => {
 }
 const upgradeUser = async (userID) => {
   const token = JSON.parse(localStorage.getItem('user')).token
-  await fetch(
-    'https://gestion-eventos-back-end.vercel.app/api/v1/users/'.concat(userID),
-    {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
-      },
-      body: JSON.stringify({ rol: 'org' })
-    }
-  )
+  await fetch(backURL('users/'.concat(userID)), {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`
+    },
+    body: JSON.stringify({ rol: 'org' })
+  })
     .then((res) => res.json())
     .then((response) => {
       messOut(response, 'success')

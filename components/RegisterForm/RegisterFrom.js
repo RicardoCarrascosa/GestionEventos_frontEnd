@@ -4,6 +4,7 @@ import LoginForm from '../LoginForm/LoginForm'
 
 import messOut from '../messageOutput/messageOutput'
 import loadingSpinner from '../loadingSpinner/loadingSpinner'
+import backURL from '../../utils/fetchURL'
 // Hacer un check de lo que entra antes de lanzarlo a api
 const registerLayOut = () => {
   return `
@@ -36,18 +37,16 @@ const registerSubmitFN = async (e) => {
   body.append('password', passwordInput.value)
   body.append('birthday', birthdayInput.value)
   body.append('profileImage', profileImageFile.files[0])
-  const res = await fetch(
-    'https://gestion-eventos-back-end.vercel.app/api/v1/users/register',
-    {
-      method: 'POST',
-      body: body
-    }
-  )
+  const res = await fetch(backURL('users/register'), {
+    method: 'POST',
+    body: body
+  })
   const response = await res.json()
-  loadingSpinner.hideLoading()
   if (response.status == 'error') {
+    loadingSpinner.hideLoading()
     messOut(response, 'warning')
   } else {
+    loadingSpinner.hideLoading()
     document.querySelector('#app-container').innerHTML = LoginForm.loginLayOut()
   }
 }

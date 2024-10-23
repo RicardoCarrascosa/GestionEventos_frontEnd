@@ -3,6 +3,7 @@ import formInput from '../formInput/formInput'
 import mainPage from '../mainMenu/mainMenu'
 import messOut from '../messageOutput/messageOutput'
 import loadingSpinner from '../loadingSpinner/loadingSpinner'
+import backURL from '../../utils/fetchURL'
 
 const loginLayOut = () => {
   return `
@@ -23,19 +24,16 @@ const loginSubmitFN = async (e) => {
   const password = document.querySelector('#password').value
 
   // Hago la solicitud a la api para logearme
-  const res = await fetch(
-    'https://gestion-eventos-back-end.vercel.app/api/v1/users/login',
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        email: email,
-        password: password
-      })
-    }
-  )
+  const res = await fetch(backURL('users/login'), {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      email: email,
+      password: password
+    })
+  })
   loadingSpinner.hideLoading()
   if (res.status === 400) {
     messOut(await res.json(), 'warning')

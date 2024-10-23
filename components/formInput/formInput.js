@@ -19,7 +19,7 @@ const formInputEmail = (id, name, required = false) => {
 }
 const formInputPassword = (id, name, required = false) => {
   return `<div class= "input-container">
-    <input type="password" id=${id} name=${name.toLowerCase()}  pattern="[a-zA-z0-9]{8}"
+    <input type="password" id=${id} name=${name.toLowerCase()}  pattern="[a-zA-z0-9]{8,}"
     ${required ? 'required' : ''}  />
     <label  for=${name.toLowerCase()}>${name}:</label>
     </div>`
