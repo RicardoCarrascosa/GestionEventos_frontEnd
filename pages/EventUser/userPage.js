@@ -13,7 +13,7 @@ const EventUserTemplate = () => {
     <select id= 'selectEvents'>
       <option value ='enrolled'>Events Enrolled</option>
       <option value ='available'>Events Available</option>
-    <select>
+    </select>
   </div>
   <section class="card-container">
   
@@ -116,45 +116,54 @@ const getEventsUserAsists = async (user) => {
 const attendEvent = async (userId, eventId) => {
   loadingSpinner.displayLoading()
   const token = JSON.parse(localStorage.getItem('user')).token
-  await fetch(backURL('attendees/create/'), {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`
-    },
-    body: JSON.stringify({
-      user: userId,
-      events: eventId
+  try {
+    await fetch(backURL('attendees/create/'), {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        user: userId,
+        events: eventId
+      })
     })
-  })
-    .then((res) => res.json())
-    .then((response) => {
-      loadingSpinner.hideLoading()
-      messOut(response, 'success')
-      EventUser(userId)
-    })
+      .then((res) => res.json())
+      .then((response) => {
+        loadingSpinner.hideLoading()
+        messOut(response, 'success')
+        EventUser(userId)
+      })
+  } catch {
+    loadingSpinner.hideLoading()
+    messOut({ message: `Could not connect with the server` }, 'warning')
+  }
 }
 const deleteAttend = async (userId, eventId) => {
   loadingSpinner.displayLoading()
   const token = JSON.parse(localStorage.getItem('user')).token
-
-  await fetch(backURL('attendees/delete/'), {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`
-    },
-    body: JSON.stringify({
-      user: userId,
-      events: eventId
+  try {
+    await fetch(backURL('attendees/delete/'), {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        user: userId,
+        events: eventId
+      })
     })
-  })
-    .then((res) => res.json())
-    .then((response) => {
-      loadingSpinner.hideLoading()
-      messOut(response, 'alert')
-      EventUser(userId)
-    })
+      .then((res) => res.json())
+      .then((response) => {
+        loadingSpinner.hideLoading()
+        messOut(response, 'alert')
+        EventUser(userId)
+      })
+  } catch {
+    loadingSpinner.hideLoading()
+    messOut({ message: `Could not connect with the server` }, 'warning')
+  }
 }
 
 const notEnrolled = () => {

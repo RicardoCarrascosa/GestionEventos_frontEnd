@@ -37,17 +37,24 @@ const registerSubmitFN = async (e) => {
   body.append('password', passwordInput.value)
   body.append('birthday', birthdayInput.value)
   body.append('profileImage', profileImageFile.files[0])
-  const res = await fetch(backURL('users/register'), {
-    method: 'POST',
-    body: body
-  })
-  const response = await res.json()
-  if (response.status == 'error') {
+  try {
+    const res = await fetch(backURL('users/register'), {
+      method: 'POST',
+      body: body
+    })
+    const response = await res.json()
+    if (response.status == 'error') {
+      loadingSpinner.hideLoading()
+      messOut(response, 'warning')
+    } else {
+      loadingSpinner.hideLoading()
+      messOut({ message: 'Registered sucesfully' }, 'success')
+      document.querySelector('#app-container').innerHTML =
+        LoginForm.loginLayOut()
+    }
+  } catch {
     loadingSpinner.hideLoading()
-    messOut(response, 'warning')
-  } else {
-    loadingSpinner.hideLoading()
-    document.querySelector('#app-container').innerHTML = LoginForm.loginLayOut()
+    messOut({ message: `Could not connect with the server` }, 'warning')
   }
 }
 const RegisterForm = { registerLayOut, registerSubmitFN }

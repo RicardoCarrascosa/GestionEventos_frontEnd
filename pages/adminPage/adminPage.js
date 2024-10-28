@@ -36,99 +36,130 @@ const eventCard = (event, subclass) => {
 const getAllEvents = async () => {
   loadingSpinner.displayLoading()
   const token = JSON.parse(localStorage.getItem('user')).token
-  await fetch(backURL('events/'), {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  })
-    .then((res) => res.json())
-    .then((response) => {
-      loadingSpinner.hideLoading()
-      response.events.forEach((ele) => {
-        eventList.push(ele)
-      })
+  try {
+    await fetch(backURL('events/'), {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
     })
+      .then((res) => res.json())
+      .then((response) => {
+        loadingSpinner.hideLoading()
+        response.events.forEach((ele) => {
+          eventList.push(ele)
+        })
+      })
+  } catch {
+    loadingSpinner.hideLoading()
+    messOut({ message: `Could not connect with the server` }, 'warning')
+  }
 }
 
 const verifyEvent = async (eventID) => {
   const userId = JSON.parse(localStorage.getItem('user')).user._id
   const token = JSON.parse(localStorage.getItem('user')).token
-  await fetch(backURL('events/verify/').concat(eventID), {
-    method: 'PUT',
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  })
-    .then((res) => res.json())
-    .then((response) => {
-      adminPage()
-      messOut(response, 'success')
+  try {
+    await fetch(backURL('events/verify/').concat(eventID), {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
     })
+      .then((res) => res.json())
+      .then((response) => {
+        adminPage()
+        messOut(response, 'success')
+      })
+  } catch {
+    loadingSpinner.hideLoading()
+    messOut({ message: `Could not connect with the server` }, 'warning')
+  }
 }
 
 const deleteEvent = async (eventID) => {
   const token = JSON.parse(localStorage.getItem('user')).token
-  await fetch(backURL('events').concat(eventID), {
-    method: 'DELETE',
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  })
-    .then((res) => res.json())
-    .then((response) => {
-      messOut(response, 'success')
-      adminPage()
+  console.log(eventID)
+  try {
+    await fetch(backURL('events/').concat(eventID), {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
     })
+      .then((res) => res.json())
+      .then((response) => {
+        messOut(response, 'success')
+        adminPage()
+      })
+  } catch {
+    loadingSpinner.hideLoading()
+    messOut({ message: `Could not connect with the server` }, 'warning')
+  }
 }
 const getAllUsers = async () => {
   loadingSpinner.displayLoading()
 
   const token = JSON.parse(localStorage.getItem('user')).token
-  await fetch(backURL('users/'), {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  })
-    .then((res) => res.json())
-    .then((response) => {
-      loadingSpinner.hideLoading()
-      response.users.forEach((ele) => {
-        userList.push(ele)
-      })
+  try {
+    await fetch(backURL('users/'), {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
     })
+      .then((res) => res.json())
+      .then((response) => {
+        loadingSpinner.hideLoading()
+        response.users.forEach((ele) => {
+          userList.push(ele)
+        })
+      })
+  } catch {
+    loadingSpinner.hideLoading()
+    messOut({ message: `Could not connect with the server` }, 'warning')
+  }
 }
 
 const deleteUser = async (userID) => {
   const token = JSON.parse(localStorage.getItem('user')).token
-  await fetch(backURL('users/'.concat(userID)), {
-    method: 'DELETE',
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  })
-    .then((res) => res.json())
-    .then((response) => {
-      messOut(response, 'success')
-      adminPage()
+  try {
+    await fetch(backURL('users/'.concat(userID)), {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
     })
+      .then((res) => res.json())
+      .then((response) => {
+        messOut(response, 'success')
+        adminPage()
+      })
+  } catch {
+    loadingSpinner.hideLoading()
+    messOut({ message: `Could not connect with the server` }, 'warning')
+  }
 }
 const upgradeUser = async (userID) => {
   const token = JSON.parse(localStorage.getItem('user')).token
-  await fetch(backURL('users/'.concat(userID)), {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`
-    },
-    body: JSON.stringify({ rol: 'org' })
-  })
-    .then((res) => res.json())
-    .then((response) => {
-      messOut(response, 'success')
-      adminPage()
+  try {
+    await fetch(backURL('users/'.concat(userID)), {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({ rol: 'org' })
     })
+      .then((res) => res.json())
+      .then((response) => {
+        messOut(response, 'success')
+        adminPage()
+      })
+  } catch {
+    loadingSpinner.hideLoading()
+    messOut({ message: `Could not connect with the server` }, 'warning')
+  }
 }
 
 const userCard = (user) => {
@@ -185,7 +216,6 @@ const adminPage = async () => {
   await getAllUsers()
 
   document.querySelector('#app-container').innerHTML = adminHTML
-
   document.querySelector('#adminEvents').innerHTML = ''
   document.querySelector('#adminUsers').innerHTML = ''
 

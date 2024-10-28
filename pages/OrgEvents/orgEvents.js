@@ -91,7 +91,10 @@ const getEventsOrganized = async (userId) => {
         })
         loadingSpinner.hideLoading()
       })
-  } catch {}
+  } catch {
+    loadingSpinner.hideLoading()
+    messOut({ message: `Could not connect with the server` }, 'warning')
+  }
 }
 const getAsistants = async (eventID) => {
   try {
@@ -106,7 +109,7 @@ const getAsistants = async (eventID) => {
     })
       .then((res) => res.json())
       .then((response) => {
-        console.log(response)
+        // console.log(response)
         response.asistats.forEach((ele) => {
           usersData.push({
             name: ele.user.name,
@@ -117,7 +120,8 @@ const getAsistants = async (eventID) => {
       })
     return usersData
   } catch {
-    return []
+    loadingSpinner.hideLoading()
+    messOut({ message: `Could not connect with the server` }, 'warning')
   }
 }
 const orgEventPage = async (userId) => {
