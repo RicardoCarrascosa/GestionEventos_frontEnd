@@ -10,6 +10,7 @@ import adminPage from '../../pages/adminPage/adminPage.js'
 import orgEventPage from '../../pages/OrgEvents/orgEvents.js'
 import profile from '../Profile/profile.js'
 import StartMenu from '../startMenu/startMenu.js'
+import fetchAPI from '../../utils/fetchAPI.js'
 
 // Import all the other pages here
 const mainMenuLayout = () => {
@@ -29,13 +30,19 @@ const mainMenuLayout = () => {
 `
 }
 
-const mainMenu = () => {
+const mainMenu = async (rol) => {
   const user = JSON.parse(localStorage.getItem('user')).user
-  const rol = JSON.parse(localStorage.getItem('user')).user.rol // Encriptar ?
   document.querySelector('#headerNav').innerHTML = mainMenuLayout()
-
   EventUser(user._id)
-
+  if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
+    // console.log('Page was refreshed!')
+    const token = JSON.parse(localStorage.getItem('user')).token
+    await fetchAPI(`users/${user._id}`, 'GET', token)
+      .then((res) => res.json())
+      .then((response) => {
+        rol = response.users[0].rol
+      })
+  }
   document.querySelector('#eventListPage').addEventListener('click', () => {
     EventUser(user._id)
   })

@@ -3,7 +3,8 @@ import './newEvent.css'
 import formInput from '../../components/formInput/formInput'
 import messOut from '../../components/messageOutput/messageOutput.js'
 import loadingSpinner from '../../components/loadingSpinner/loadingSpinner.js'
-import backURL from '../../utils/fetchURL.js'
+
+import fetchAPI from '../../utils/fetchAPI.js'
 
 const newEvent = () => {
   const Options = [
@@ -42,13 +43,14 @@ const newEventRegistry = async (ev, user) => {
 
   const token = JSON.parse(localStorage.getItem('user')).token
   try {
-    await fetch(backURL('events/register'), {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${token}`
-      },
-      body: body
-    })
+    // await fetch(backURL('events/register'), {
+    //   method: 'POST',
+    //   headers: {
+    //     Authorization: `Bearer ${token}`
+    //   },
+    //   body: body
+    // })
+    await fetchAPI('events/register', 'POST', token, body, true)
       .then((res) => res.json())
       .then((response) => {
         loadingSpinner.hideLoading()

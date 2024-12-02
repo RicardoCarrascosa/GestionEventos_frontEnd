@@ -13,11 +13,11 @@ const displayLoading = () => {
 
 // hiding loading
 const hideLoading = () => {
-  console.log('hidingLoading')
+  // console.log('hidingLoading')
   const alertContainer = document.querySelector('#alerts-container')
   if (alertContainer.childElementCount > 0) {
     for (let index = 0; index < alertContainer.childElementCount; index++) {
-      console.log('hide: ' + index)
+      // console.log('hide: ' + index)
       alertContainer.removeChild(alertContainer.firstChild)
     }
   }

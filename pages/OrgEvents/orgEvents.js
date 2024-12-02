@@ -3,7 +3,8 @@
 // mejorar  -  lista de participantes
 import './orgEvent.css'
 import loadingSpinner from '../../components/loadingSpinner/loadingSpinner'
-import backURL from '../../utils/fetchURL'
+import fetchAPI from '../../utils/fetchAPI'
+import messOut from '../../components/messageOutput/messageOutput.js'
 
 const eventList = []
 
@@ -75,54 +76,56 @@ const asistContainer = (userlist) => {
 }
 
 const getEventsOrganized = async (userId) => {
-  try {
-    loadingSpinner.displayLoading()
-    const token = JSON.parse(localStorage.getItem('user')).token
-    await fetch(backURL('events/organized/'.concat(userId)), {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
-      .then((res) => res.json())
-      .then((response) => {
-        response.events.forEach((ele) => {
-          eventList.push(ele)
-        })
-        loadingSpinner.hideLoading()
+  // try {
+  loadingSpinner.displayLoading()
+  const token = JSON.parse(localStorage.getItem('user')).token
+  // await fetch(backURL('events/organized/'.concat(userId)), {
+  //   method: 'GET',
+  //   headers: {
+  //     Authorization: `Bearer ${token}`
+  //   }
+  // })
+  await fetchAPI(`events/organized/${userId}`, 'GET', token)
+    .then((res) => res.json())
+    .then((response) => {
+      response.events.forEach((ele) => {
+        eventList.push(ele)
       })
-  } catch {
-    loadingSpinner.hideLoading()
-    messOut({ message: `Could not connect with the server` }, 'warning')
-  }
+      loadingSpinner.hideLoading()
+    })
+  // } catch {
+  //   loadingSpinner.hideLoading()
+  //   messOut({ message: `Could not connect with the server` }, 'warning')
+  // }
 }
 const getAsistants = async (eventID) => {
-  try {
-    loadingSpinner.displayLoading()
-    let usersData = []
-    const token = JSON.parse(localStorage.getItem('user')).token
-    await fetch(backURL('attendees/event/'.concat(eventID)), {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
-      .then((res) => res.json())
-      .then((response) => {
-        // console.log(response)
-        response.asistats.forEach((ele) => {
-          usersData.push({
-            name: ele.user.name,
-            email: ele.user.email
-          })
+  // try {
+  loadingSpinner.displayLoading()
+  let usersData = []
+  const token = JSON.parse(localStorage.getItem('user')).token
+
+  // await fetch(backURL('attendees/event/'.concat(eventID)), {
+  //   method: 'GET',
+  //   headers: {
+  //     Authorization: `Bearer ${token}`
+  //   }
+  // })
+  await fetchAPI(`attendees/event/${eventID}`, 'GET', token)
+    .then((res) => res.json())
+    .then((response) => {
+      response.asistats.forEach((ele) => {
+        usersData.push({
+          name: ele.user.name,
+          email: ele.user.email
         })
-        loadingSpinner.hideLoading()
       })
-    return usersData
-  } catch {
-    loadingSpinner.hideLoading()
-    messOut({ message: `Could not connect with the server` }, 'warning')
-  }
+      loadingSpinner.hideLoading()
+    })
+  return usersData
+  // } catch {
+  //   loadingSpinner.hideLoading()
+  //   messOut({ message: `Could not connect with the server` }, 'warning')
+  // }
 }
 const orgEventPage = async (userId) => {
   document.querySelector('#app-container').innerHTML = orgContainer()

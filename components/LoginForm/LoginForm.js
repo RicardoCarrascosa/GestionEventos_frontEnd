@@ -3,7 +3,7 @@ import formInput from '../formInput/formInput'
 import mainPage from '../mainMenu/mainMenu'
 import messOut from '../messageOutput/messageOutput'
 import loadingSpinner from '../loadingSpinner/loadingSpinner'
-import backURL from '../../utils/fetchURL'
+import fetchAPI from '../../utils/fetchAPI'
 
 const loginLayOut = () => {
   return `
@@ -22,35 +22,46 @@ const loginSubmitFN = async (e) => {
   // When we click on the login
   const email = document.querySelector('#email').value.toLowerCase()
   const password = document.querySelector('#password').value
-  try {
-    // Hago la solicitud a la api para logearme
-    const res = await fetch(backURL('users/login'), {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        email: email,
-        password: password
-      })
+  // try {
+  // Hago la solicitud a la api para logearme
+
+  // const res = await fetch(backURL('users/login'), {
+  //   method: 'POST',
+  //   headers: {
+  //     'Content-Type': 'application/json'
+  //   },
+  //   body: JSON.stringify({
+  //     email: email,
+  //     password: password
+  //   })
+  // })
+  const res = await fetchAPI(
+    'users/login',
+    'POST',
+    '',
+    JSON.stringify({
+      email: email,
+      password: password
     })
-    loadingSpinner.hideLoading()
-    if (res.status === 400) {
-      messOut(await res.json(), 'warning')
-    } else {
-      // If no error in log - continue
-      // Get the response from the petition to the server - > login
-      const resData = await res.json()
-      // save in the localStorage
-      localStorage.setItem('user', JSON.stringify(resData))
-      // Show a mesage that has been logged
-      messOut({ message: `Welcome Back: ${email}` }, 'success')
-      // Call the User Page
-      mainPage()
-    }
-  } catch {
-    messOut({ message: `Could not connect with the server` }, 'warning')
+  )
+  loadingSpinner.hideLoading()
+  if (res.status >= 400) {
+    messOut(await res.json(), 'warning')
+  } else {
+    // If no error in log - continue
+    // Get the response from the petition to the server - > login
+    const resData = await res.json()
+    console.log(resData)
+    // save in the localStorage
+    localStorage.setItem('user', JSON.stringify(resData))
+    // Show a mesage that has been logged
+    messOut({ message: `Welcome Back: ${email}` }, 'success')
+    // Call the User Page
+    mainPage(resData.user.rol)
   }
+  // } catch {
+  //   messOut({ message: `Could not connect with the server` }, 'warning')
+  // }
 }
 
 const LoginForm = { loginLayOut, loginSubmitFN }

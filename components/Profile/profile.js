@@ -20,7 +20,7 @@ const profileLayout = (user) => {
 }
 
 const profile = (user) => {
-  console.log(user)
+  // console.log(user)
   document.querySelector('#app-container').innerHTML = profileLayout(user)
 }
 

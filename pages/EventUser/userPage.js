@@ -4,13 +4,13 @@
 import './userPage.css'
 import messOut from '../../components/messageOutput/messageOutput.js'
 import loadingSpinner from '../../components/loadingSpinner/loadingSpinner'
-import backURL from '../../utils/fetchURL.js'
+import fetchAPI from '../../utils/fetchAPI.js'
 
 const EventUserTemplate = () => {
   return `
   <div id='selEventContainer'>
   <h3>Events</h3>
-    <select id= 'selectEvents'>
+    <select id= 'selEvents'>
       <option value ='enrolled'>Events Enrolled</option>
       <option value ='available'>Events Available</option>
     </select>
@@ -73,13 +73,8 @@ const extractEventInfo = (data) => {
 const getEvents = async () => {
   loadingSpinner.displayLoading()
   const token = JSON.parse(localStorage.getItem('user')).token
-  const res = await fetch(backURL('events/'), {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`
-    }
-  })
+
+  const res = await fetchAPI('events/', 'GET', token)
   if (res.status === 200) {
     const data = await res.json()
     loadingSpinner.hideLoading()
@@ -94,12 +89,7 @@ const getEvents = async () => {
 const getEventsUserAsists = async (user) => {
   loadingSpinner.displayLoading()
   const token = JSON.parse(localStorage.getItem('user')).token
-  const res = await fetch(backURL(`attendees/user/${user}`), {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  })
+  const res = await fetchAPI(`attendees/user/${user}`, 'GET', token)
   if (res.status === 200) {
     const data = await res.json()
     if (data.asistats) {
@@ -117,17 +107,26 @@ const attendEvent = async (userId, eventId) => {
   loadingSpinner.displayLoading()
   const token = JSON.parse(localStorage.getItem('user')).token
   try {
-    await fetch(backURL('attendees/create/'), {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
-      },
-      body: JSON.stringify({
+    // await fetch(backURL('attendees/create/'), {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     Authorization: `Bearer ${token}`
+    //   },
+    //   body: JSON.stringify({
+    //     user: userId,
+    //     events: eventId
+    //   })
+    // })
+    await fetchAPI(
+      'attendees/create/',
+      'POST',
+      token,
+      JSON.stringify({
         user: userId,
         events: eventId
       })
-    })
+    )
       .then((res) => res.json())
       .then((response) => {
         loadingSpinner.hideLoading()
@@ -143,17 +142,26 @@ const deleteAttend = async (userId, eventId) => {
   loadingSpinner.displayLoading()
   const token = JSON.parse(localStorage.getItem('user')).token
   try {
-    await fetch(backURL('attendees/delete/'), {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
-      },
-      body: JSON.stringify({
+    // await fetch(backURL('attendees/delete/'), {
+    //   method: 'PUT',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     Authorization: `Bearer ${token}`
+    //   },
+    //   body: JSON.stringify({
+    //     user: userId,
+    //     events: eventId
+    //   })
+    // })
+    await fetchAPI(
+      'attendees/delete/',
+      'PUT',
+      token,
+      JSON.stringify({
         user: userId,
         events: eventId
       })
-    })
+    )
       .then((res) => res.json())
       .then((response) => {
         loadingSpinner.hideLoading()
@@ -204,8 +212,8 @@ const renderEvents = (events, atendEvent, userID) => {
     })
   )
   if (document.querySelector('.enrolledEvents').childElementCount == 1) {
-    document.querySelector('#selectEvents').value = 'available'
-    document.querySelector('#selectEvents').dispatchEvent(new Event('change'))
+    document.querySelector('#selEvents').value = 'available'
+    document.querySelector('#selEvents').dispatchEvent(new Event('change'))
     document.querySelector('.enrolledEvents').innerHTML += notEnrolled()
   } else {
   }
@@ -215,7 +223,7 @@ const EventUser = async (userID) => {
   const events = await getEvents()
   const atendEvent = await getEventsUserAsists(userID)
 
-  document.querySelector('#selectEvents').addEventListener('change', (ev) => {
+  document.querySelector('#selEvents').addEventListener('change', (ev) => {
     if (ev.target.value == 'enrolled') {
       document.querySelector('.enrolledEvents').classList.remove('hidden')
       document.querySelector('.availableEvents').classList.add('hidden')

@@ -52,7 +52,7 @@ a {
 
 #app-container {
   width: 100%;
-  min-height: calc(70vh - 3rem - 3.5px);
+  min-height: calc(70vh - 3rem);
   padding-top: 1rem;
   display: flex;
   flex-direction: column;
